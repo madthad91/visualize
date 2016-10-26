@@ -1,3 +1,15 @@
+#Getting Started on this project:
+##getting started windows
+npm install -g angular-cli; git clone https://bitbucket.org/teamsomethingcool/teamsomethingcool.bitbucket.org.git; cd teamsomethingcool.bitbucket.org; npm install; ng serve
+
+##stop server
+ctrl+c
+
+##ready to commit code?
+npm run ready; git commit -m "commit message here"; git push origin master
+
+
+##default messaging from angular cli folks
 # Visualize
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.18.
