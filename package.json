@@ -4,6 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
+    "ready": "ng build --bh /dist/ && git add .",
     "start": "ng serve",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
@@ -11,7 +12,7 @@
     "postinstall": "npm install -g angular-cli",
     "e2e": "protractor"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/common": "~2.1.0",
     "@angular/compiler": "~2.1.0",
