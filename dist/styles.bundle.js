@@ -6,17 +6,17 @@ webpackJsonp([1,2],{
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(431);
+var content = __webpack_require__(581);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(435)(content, {});
+var update = __webpack_require__(598)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!./../node_modules/angular-cli/node_modules/css-loader/index.js!./../node_modules/angular-cli/node_modules/postcss-loader/index.js!./styles.css", function() {
-			var newContent = require("!!./../node_modules/angular-cli/node_modules/css-loader/index.js!./../node_modules/angular-cli/node_modules/postcss-loader/index.js!./styles.css");
+		module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/postcss-loader/index.js!./styles.css", function() {
+			var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/postcss-loader/index.js!./styles.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -27,22 +27,22 @@ if(false) {
 
 /***/ },
 
-/***/ 431:
+/***/ 581:
 /***/ function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(432)();
+exports = module.exports = __webpack_require__(582)();
 // imports
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n", ""]);
 
 // exports
 
 
 /***/ },
 
-/***/ 432:
+/***/ 582:
 /***/ function(module, exports) {
 
 /*
@@ -99,7 +99,7 @@ module.exports = function() {
 
 /***/ },
 
-/***/ 435:
+/***/ 598:
 /***/ function(module, exports) {
 
 /*
