@@ -1,3 +1,8 @@
+#Dev Branch
+
+This is a dev branch for working with the mockup.
+
+
 #Getting Started on this project:
 ##getting started windows
 npm install -g angular-cli; git clone https://bitbucket.org/teamsomethingcool/teamsomethingcool.bitbucket.org.git; cd teamsomethingcool.bitbucket.org; npm install; ng serve
