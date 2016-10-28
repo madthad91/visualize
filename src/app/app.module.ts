@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { AnameComponent } from './components/aname/aname.component';
 import { SampleFormComponent } from './components/sample-form/sample-form.component';
 import { MaterialModule} from '@angular/material';
+import { PropertyTypeConvertPipe } from './pipes/property-type-convert.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     AnameComponent,
-    SampleFormComponent
+    SampleFormComponent,
+    PropertyTypeConvertPipe
   ],
   imports: [
     BrowserModule,
