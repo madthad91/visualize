@@ -5,16 +5,20 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AnameComponent } from './components/aname/aname.component';
+import { SampleFormComponent } from './components/sample-form/sample-form.component';
+import { MaterialModule} from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AnameComponent
+    AnameComponent,
+    SampleFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MaterialModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
