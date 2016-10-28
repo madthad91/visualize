@@ -28,11 +28,14 @@ export class SampleFormComponent implements OnInit {
   public addNewFormPiece(e, val, idx):void{
     console.log('the event contains', e,'the value is', val, 'the index is', idx)
     console.log('the decisionTree is ' ,this.decisionTree)
-    if(val.propertyType == "object"){
-      //this.decisionTree[0].splice(idx+1, this.decisionTree.length - (idx +1));
+    if(val.type == "object"){
+      if(this.decisionTree.length > 1){
+        this.decisionTree.splice(idx+1, this.decisionTree.length - (idx +1));
+      }
+        
       this.fillNextForm();
     }
-    else if(val.propertyType == "number"){
+    else if(val.type == "number"){
       this.askIfDone();
     }
   }
@@ -41,6 +44,7 @@ export class SampleFormComponent implements OnInit {
      let thang  = {}
     thang["data"] = this.p.getProperties(this.data);
     this.decisionTree.push(thang)
+    console.log('the decisionTree after fill next form is ' ,this.decisionTree)
 
   }
 
