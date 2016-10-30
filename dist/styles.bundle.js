@@ -66,7 +66,7 @@ module.exports = function() {
 var content = __webpack_require__(741);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(786)(content, {});
+var update = __webpack_require__(787)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -114,7 +114,7 @@ exports.push([module.i, "/* You can add global styles to this file, and also imp
 
 /***/ },
 
-/***/ 786:
+/***/ 787:
 /***/ function(module, exports) {
 
 /*
@@ -367,7 +367,7 @@ function updateLink(linkElement, obj) {
 
 /***/ },
 
-/***/ 789:
+/***/ 791:
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(433);
@@ -375,5 +375,5 @@ module.exports = __webpack_require__(433);
 
 /***/ }
 
-},[789]);
+},[791]);
 //# sourceMappingURL=styles.map
