@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import * as _ from 'lodash';
+
 // import test data
 
 @Injectable()
@@ -29,12 +31,14 @@ export class ParserService {
   }
 
   getValueFromPath(p, obj) {
+    let objClone = _.cloneDeep(obj);
+
     if (obj) {
       let pathArr = p.split('.');
       let value;
       pathArr.forEach((prop, i) => {
         if (i == 0) {
-          value = obj[prop];
+          value = objClone[prop];
         } else {
           value = value[prop];
         }
