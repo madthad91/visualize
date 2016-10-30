@@ -13,6 +13,7 @@ import { PropertyTypeConvertPipe } from './pipes/property-type-convert.pipe';
 import { HomeComponent } from './components/home/home.component';
 import { ViewComponent } from './components/view/view.component';
 import { PlotComponent } from './components/plot/plot.component';
+import { SelectDataFormComponent } from './components/select-data-form/select-data-form.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PlotComponent } from './components/plot/plot.component';
     PropertyTypeConvertPipe,
     HomeComponent,
     ViewComponent,
-    PlotComponent
+    PlotComponent,
+    SelectDataFormComponent
   ],
   imports: [
     BrowserModule,
