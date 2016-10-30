@@ -28,6 +28,21 @@ export class ParserService {
     }
   }
 
+  getValueFromPath(p, obj) {
+    if (obj) {
+      let pathArr = p.split('.');
+      let value;
+      pathArr.forEach((prop, i) => {
+        if (i == 0) {
+          value = obj[prop];
+        } else {
+          value = value[prop];
+        }
+      });
+      return value;
+    }
+  }
+
   // generator code
   constructor() { }
 }
