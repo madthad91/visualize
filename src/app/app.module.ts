@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { RouterModule } from '@angular/router';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AnameComponent } from './components/aname/aname.component';
 import { SampleFormComponent } from './components/sample-form/sample-form.component';
@@ -35,7 +35,8 @@ import { SelectDataFormComponent } from './components/select-data-form/select-da
       { path: '', component: HomeComponent },
       { path: 'plot', component: PlotComponent },
       { path: 'view', component: ViewComponent }
-    ])
+    ]),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

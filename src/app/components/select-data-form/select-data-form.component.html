@@ -1,3 +1,42 @@
-<p>
-  select-data-form works!
-</p>
+<main>
+    <p> {{ decisionPath }}</p>
+    <md-card>
+        <md-card-title>{{ title }}</md-card-title>
+        <form>
+            <button md-icon-button [md-menu-trigger-for]="menu">
+          <md-icon>more_vert</md-icon>
+        </button>
+
+            <md-checkbox name="agrees" [(ngModel)]="selections.collectionReady" (change)="openChart()">
+                this is my collection
+            </md-checkbox>
+
+            <md-menu x-position="after" #menu="mdMenu">
+                <button (click)="addNewFormPiece($event, child, i)" md-menu-item *ngFor="let child of children">
+              <span><button md-mini-fab color="warn" >{{child.type | propertyTypeConvert}}</button> {{child.name}}</span>
+                </button>
+            </md-menu>
+
+            <button *ngIf="selections.collectionReady" md-icon-button [md-menu-trigger-for]="graphMenu">
+              <md-icon>more_vert</md-icon>
+            </button>
+
+            <md-menu #graphMenu="mdMenu">
+                <button md-menu-item (click)="graphBarChart(decisionPath)">
+                bar chart
+              </button>
+                <button md-menu-item>
+                pie chart
+              </button>
+            </md-menu>
+
+        </form>
+    </md-card>
+    <md-card *ngIf="selections.showGraph">
+        <div>
+            run graph for {{ selections.graphData | json }}
+        </div>
+
+    </md-card>
+
+</main>

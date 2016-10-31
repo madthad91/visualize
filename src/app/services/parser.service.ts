@@ -26,7 +26,8 @@ export class ParserService {
 
   getValues(k, obj) {
     if ( Array.isArray(obj) || (typeof obj === "object") ) {
-      return obj[k];
+      var result = _.cloneDeep( obj[k] );
+      return result;
     }
   }
 
@@ -37,11 +38,8 @@ export class ParserService {
       let pathArr = p.split('.');
       let value;
       pathArr.forEach((prop, i) => {
-        if (i == 0) {
-          value = objClone[prop];
-        } else {
-          value = value[prop];
-        }
+        value = objClone[prop];
+        objClone = value;
       });
       return value;
     }
