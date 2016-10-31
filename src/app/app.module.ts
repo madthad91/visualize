@@ -14,6 +14,9 @@ import { HomeComponent } from './components/home/home.component';
 import { ViewComponent } from './components/view/view.component';
 import { PlotComponent } from './components/plot/plot.component';
 import { SelectDataFormComponent } from './components/select-data-form/select-data-form.component';
+import { DemoPageComponent } from './components/demo-page/demo-page.component';
+import { ChartSelector } from './components/demo-page/chart-selector'
+import { nvD3} from 'ng2-nvD3';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { SelectDataFormComponent } from './components/select-data-form/select-da
     HomeComponent,
     ViewComponent,
     PlotComponent,
-    SelectDataFormComponent
+    SelectDataFormComponent,
+    DemoPageComponent,
+    ChartSelector,
+    nvD3
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,8 @@ import { SelectDataFormComponent } from './components/select-data-form/select-da
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'plot', component: PlotComponent },
-      { path: 'view', component: ViewComponent }
+      { path: 'view', component: ViewComponent },
+      { path: 'demo', component: DemoPageComponent}
     ]),
     ReactiveFormsModule
   ],

@@ -29,6 +29,10 @@ export class AppComponent {
       name: "View",
       url:"view",
       icon:"search"
+    }, {
+      name: "Demo",
+      url:"demo",
+      icon:"dont matter"
     }]
   }
 }

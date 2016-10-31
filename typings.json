@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "d3": "registry:npm/d3#3.0.0+20160723033700"
+  },
+  "ambient":{
+    "d3": "github:DefinitelyTyped/DefinitelyTyped/d3/d3.d.ts",
+"nvd3": "github:DefinitelyTyped/DefinitelyTyped/nvd3/nvd3.d.ts"
+  }
+}
