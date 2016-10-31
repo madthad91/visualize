@@ -14,6 +14,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ViewComponent } from './components/view/view.component';
 import { PlotComponent } from './components/plot/plot.component';
 
+import { ApiService } from './services/api.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,7 @@ import { PlotComponent } from './components/plot/plot.component';
       { path: 'view', component: ViewComponent }
     ])
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
