@@ -2,24 +2,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { MaterialModule } from '@angular/material';
 
-import { HomeComponent } from './home.component';
+import { SelectDataFormComponent } from './select-data-form.component';
 
-xdescribe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+xdescribe('SelectDataFormComponent', () => {
+  let component: SelectDataFormComponent;
+  let fixture: ComponentFixture<SelectDataFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialModule ],
-      declarations: [ HomeComponent ]
+      declarations: [ SelectDataFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(SelectDataFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

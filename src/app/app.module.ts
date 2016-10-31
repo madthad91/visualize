@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { RouterModule } from '@angular/router';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AnameComponent } from './components/aname/aname.component';
 import { SampleFormComponent } from './components/sample-form/sample-form.component';
@@ -13,6 +13,7 @@ import { PropertyTypeConvertPipe } from './pipes/property-type-convert.pipe';
 import { HomeComponent } from './components/home/home.component';
 import { ViewComponent } from './components/view/view.component';
 import { PlotComponent } from './components/plot/plot.component';
+import { SelectDataFormComponent } from './components/select-data-form/select-data-form.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PlotComponent } from './components/plot/plot.component';
     PropertyTypeConvertPipe,
     HomeComponent,
     ViewComponent,
-    PlotComponent
+    PlotComponent,
+    SelectDataFormComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { PlotComponent } from './components/plot/plot.component';
       { path: '', component: HomeComponent },
       { path: 'plot', component: PlotComponent },
       { path: 'view', component: ViewComponent }
-    ])
+    ]),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
