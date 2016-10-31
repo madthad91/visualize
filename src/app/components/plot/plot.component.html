@@ -1,2 +1,22 @@
-
 <app-demo-page></app-demo-page>
+
+<md-input #api placeholder="API" class="width-50"></md-input>
+<button md-raised-button color="primary" (click)="get(api.value)">Plot Data</button>
+
+<div class="menu-section">
+	<p>Plot Type: {{ selected }}</p>
+
+	<md-toolbar>
+	  <button md-icon-button [md-menu-trigger-for]="menu">
+	    <md-icon>more_vert</md-icon>
+	  </button>
+	</md-toolbar>
+
+	<md-menu #menu="mdMenu">
+	  <button md-menu-item *ngFor="let item of items" (click)="select(item.text)" [disabled]="item.disabled">
+	    {{ item.text }}
+	  </button>
+	</md-menu>
+</div>
+
+<p>{{jsonData}}</p>

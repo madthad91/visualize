@@ -18,6 +18,8 @@ import { DemoPageComponent } from './components/demo-page/demo-page.component';
 import { ChartSelector } from './components/demo-page/chart-selector'
 import { nvD3} from 'ng2-nvD3';
 
+import { ApiService } from './services/api.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,7 @@ import { nvD3} from 'ng2-nvD3';
     ]),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
