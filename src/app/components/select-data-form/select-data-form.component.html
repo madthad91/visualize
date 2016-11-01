@@ -46,9 +46,10 @@
         </form>
     </md-card>
     <md-card *ngIf="selections.showGraph">
-        <div>
+        <nvd3 [options]="options" [data]="data2"></nvd3>
+        <!--<div>
             run graph for {{ selections.graphData | json }}
-        </div>
+        </div>-->
     </md-card>
 
 </main>

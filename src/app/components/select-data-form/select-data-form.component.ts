@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ParserService } from '../../services/parser.service';
 import { GetJsonService } from '../../services/get-json.service';
 import { ApiService } from '../../services/api.service';
+import {ChartTypes, AllOptions, AllData} from '../demo-page/defs'
 
 @Component({
   selector: 'app-select-data-form',
@@ -10,6 +11,10 @@ import { ApiService } from '../../services/api.service';
   providers: [ParserService, GetJsonService, ApiService]
 })
 export class SelectDataFormComponent implements OnInit {
+
+  options;
+  data2;
+  chartType;
   title = 'Select your data collection';
 
   data: any; //stores the data receive back from Jgetter  
@@ -73,8 +78,16 @@ export class SelectDataFormComponent implements OnInit {
   }
 
   graphBarChart(decisionPath) {
+    this.selectType(0)
     this.selections.showGraph = true;
-    this.selections.graphData = this.Parser.getValueFromPath( this.decisionPath, this.data );
+    //this.selections.graphData = this.Parser.getValueFromPath( this.decisionPath, this.data );
+  }
+
+  selectType(e){
+    this.chartType = "pieChart";
+    this.options = AllOptions["boxPlotChart"];//this.chartType];
+    this.data2 = AllData["boxPlotChart"];
+    console.log(this.options, this.data2)
   }
 
   ngOnInit(): void {

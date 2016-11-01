@@ -6,7 +6,6 @@ import {ChartSelector} from './chart-selector'
 
 @Component({
   selector: 'main',
-  directives: [nvD3, ChartSelector],
   template: `
   <div>
     <div>Chart type: <chart-selector (select)="selectType($event)"></chart-selector></div>
