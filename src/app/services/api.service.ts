@@ -10,11 +10,6 @@ export class ApiService {
 
   constructor(private http: Http) { }
 
-/*  getAPI(apiUrl: string): Observable<any> {
-    return this.http.get(this.baseUrl+apiUrl)
-               .map(response => response.json());
-  }*/
-
   getAPI(api: string): Promise<any> {
     return this.http.get(this.baseUrl+api)
               .toPromise()
