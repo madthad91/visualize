@@ -11,7 +11,6 @@ import {ChartTypes, AllOptions, AllData} from '../demo-page/defs'
   providers: [ParserService, GetJsonService, ApiService]
 })
 export class SelectDataFormComponent implements OnInit {
-
   options;
   data2;
   chartType;
