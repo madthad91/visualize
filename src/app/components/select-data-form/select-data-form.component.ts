@@ -3,6 +3,7 @@ import { ParserService } from '../../services/parser.service';
 import { GetJsonService } from '../../services/get-json.service';
 import { ApiService } from '../../services/api.service';
 import {ChartTypes, AllOptions, AllData} from '../demo-page/defs'
+import {RecursiveFilterService} from '../../services/recursive-filter.service';
 
 @Component({
   selector: 'app-select-data-form',
@@ -53,7 +54,22 @@ export class SelectDataFormComponent implements OnInit {
     this.ApiGetter.getAPI(api)
       .then(jsonData => {
         this.data = jsonData;
-        this.children = this.Parser.getProperties(this.data);
+        var isArray =  Array.isArray(this.data);
+
+        //this.children = 
+        var temp = this.Parser.getProperties(this.data);
+        console.log(temp)
+        if(isArray){
+          this.children = temp.map(function(x){
+            x["isArray"] = true;
+            return x;
+          })
+        }
+        else{
+          this.children = temp;
+        }
+
+        console.log(this.children);
       });
   }
 
@@ -67,18 +83,35 @@ export class SelectDataFormComponent implements OnInit {
 
   addNewFormPiece($event, child, i) {
     console.log("add new form piece was called", $event, child, i);
+    
     this.addPath(child, i);
     this.selectedChild = this.Parser.getValueFromPath(this.decisionPath, this.data);
-    this.children = this.Parser.getProperties(this.selectedChild);
+    var isArray =  Array.isArray(this.selectedChild);
+
+    var temp = this.Parser.getProperties(this.selectedChild);
+    if(isArray){
+      this.children = temp.map(function(x){
+        x["isArray"] = true;
+        return x;
+      })
+    }
+    else{
+      this.children = temp;
+    }
+
   }
 
   openChart() {
     console.log("open chart", this.selections.collectionReady);
   }
 
-  graphBarChart(decisionPath) {
+  public graphBarChart(decisionPath):void {
     this.selectType(0)
     this.selections.showGraph = true;
+    var temp = decisionPath.split('.')
+    var desiredKey = temp[temp.length-1]
+    var partialDataSet = RecursiveFilterService.converter(this.data, desiredKey, (temp.length-1),function(x){return x[desiredKey];})
+    console.log(partialDataSet);
     //this.selections.graphData = this.Parser.getValueFromPath( this.decisionPath, this.data );
   }
 

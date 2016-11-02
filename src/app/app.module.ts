@@ -19,6 +19,7 @@ import { ChartSelector } from './components/demo-page/chart-selector'
 import { nvD3} from 'ng2-nvd3';
 
 import { ApiService } from './services/api.service';
+import { IsArrayPipe } from './pipes/is-array.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ApiService } from './services/api.service';
     SelectDataFormComponent,
     DemoPageComponent,
     ChartSelector,
-    nvD3
+    nvD3,
+    IsArrayPipe
   ],
   imports: [
     BrowserModule,
