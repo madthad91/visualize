@@ -11,9 +11,11 @@ export class PropertyTypeConvertPipe implements PipeTransform {
     } else if (value == "string") {
       return "S";
     } else if (value == "object") {
-      return "O";
+      return "Oo";
     } else if (value == "boolean") {
       return "B";
+    } else if (value == "list") {
+      return "L";
     }
     return null;
   }

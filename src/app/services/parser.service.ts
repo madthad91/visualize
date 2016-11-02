@@ -24,6 +24,13 @@ export class ParserService {
     }
   }
 
+  getKeys(obj: Object) {
+    var temp = [];
+    var result = [];
+
+    Object.keys(obj)
+  }
+
   getValues(k, obj) {
     if ( Array.isArray(obj) || (typeof obj === "object") ) {
       var result = _.cloneDeep( obj[k] );

@@ -20,7 +20,9 @@ export class SelectDataFormComponent implements OnInit {
   data: any; //stores the data receive back from Jgetter  
   children: any; // stores the first level children of json data
   decisionPath: string; // stores the path of the user choice
+  cleanDecisionPath: string;
   selectedChild: any // stores the object user selected
+  partialDataSet: any;
 
   selections = {
     collectionReady: false,
@@ -48,6 +50,7 @@ export class SelectDataFormComponent implements OnInit {
   //this uses the api input
   getJSONData(api: string) {
     this.decisionPath = ''; //clear decisionPath before getting data again
+    this.cleanDecisionPath = ''; //clear decisionPath before getting data again
 
     api = api.trim();
     if (!api) { return; }    
@@ -75,7 +78,16 @@ export class SelectDataFormComponent implements OnInit {
 
   addPath(child, i) {
     if (this.decisionPath) {
-      this.decisionPath = this.decisionPath + "." + child.name;
+      //this skips the selection of an object in a list
+      if (child.type === 'list') {
+        this.decisionPath = this.decisionPath + "." + child.name + ".0";
+      }
+      else {
+        this.decisionPath = this.decisionPath + "." + child.name;
+        
+      }
+
+      this.cleanDecisionPath = this.cleanDecisionPath + "." + child.name;
     } else {
       this.decisionPath = child.name;
     }
@@ -105,13 +117,14 @@ export class SelectDataFormComponent implements OnInit {
     console.log("open chart", this.selections.collectionReady);
   }
 
-  public graphBarChart(decisionPath):void {
+  public graphBarChart(cleanDecisionPath):void {
     this.selectType(0)
     this.selections.showGraph = true;
-    var temp = decisionPath.split('.')
+    var temp = cleanDecisionPath.split('.')
     var desiredKey = temp[temp.length-1]
-    var partialDataSet = RecursiveFilterService.converter(this.data, desiredKey, (temp.length-1),function(x){return x[desiredKey];})
+    var partialDataSet = RecursiveFilterService.converter(this.data, desiredKey, temp.length-1,function(x){return x[desiredKey];})
     console.log(partialDataSet);
+    this.partialDataSet = JSON.stringify(partialDataSet);
     //this.selections.graphData = this.Parser.getValueFromPath( this.decisionPath, this.data );
   }
 

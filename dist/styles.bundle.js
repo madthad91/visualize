@@ -107,7 +107,7 @@ exports = module.exports = __webpack_require__(418)();
 exports.i(__webpack_require__(750), "");
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\n.md-menu{max-height: 300px !important; overflow-y:auto !important}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n\r\n.md-menu{max-height: 300px !important; overflow-y:auto !important}", ""]);
 
 // exports
 

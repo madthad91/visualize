@@ -6,14 +6,15 @@
 	</md-card>
 
 	<md-card>
-		<md-card-title>{{ decisionPath }}</md-card-title>
+		<div>Decision Path: {{ cleanDecisionPath }}</div>
+		<div>Data set: {{ partialDataSet }}</div>
 	</md-card>
 
 	<md-card>
 		<md-card-title>{{ title }}</md-card-title>
 		<form>
 			<div>
-				Data:
+				Select:
 				<button md-icon-button [md-menu-trigger-for]="menu">
                     <md-icon>more_vert</md-icon>
                 </button>
@@ -36,7 +37,7 @@
                 </button>
 
 				<md-menu #graphMenu="mdMenu">
-					<button md-menu-item (click)="graphBarChart(decisionPath)">
+					<button md-menu-item (click)="graphBarChart(cleanDecisionPath)">
                     bar chart
                   </button>
 					<button md-menu-item>
