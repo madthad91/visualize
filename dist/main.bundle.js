@@ -69152,8 +69152,8 @@ function getResolve(route) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_select_data_form_select_data_form_component__ = __webpack_require__(590);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_demo_page_demo_page_component__ = __webpack_require__(586);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_demo_page_chart_selector__ = __webpack_require__(585);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_ng2_nvD3__ = __webpack_require__(751);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_ng2_nvD3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_ng2_nvD3__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_ng2_nvd3__ = __webpack_require__(751);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_ng2_nvd3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_ng2_nvd3__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__services_api_service__ = __webpack_require__(379);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -69200,7 +69200,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_13__components_select_data_form_select_data_form_component__["a" /* SelectDataFormComponent */],
                 __WEBPACK_IMPORTED_MODULE_14__components_demo_page_demo_page_component__["a" /* DemoPageComponent */],
                 __WEBPACK_IMPORTED_MODULE_15__components_demo_page_chart_selector__["a" /* ChartSelector */],
-                __WEBPACK_IMPORTED_MODULE_16_ng2_nvD3__["nvD3"]
+                __WEBPACK_IMPORTED_MODULE_16_ng2_nvd3__["nvD3"]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["d" /* BrowserModule */],
@@ -90376,7 +90376,7 @@ module.exports = " <div>\n    <div>Chart type: <chart-selector (select)=\"select
 /* 764 */
 /***/ function(module, exports) {
 
-module.exports = "<!-- <p>\n    home works!\n</p> -->\n<app-select-data-form></app-select-data-form>"
+module.exports = "<!-- <p>\n    home works!\n</p> -->\n<div style=\"display: flex\" layout=\"row\" layout-align=\"center center\">\n\n\t<div style=\"flex-grow: 1; background-color: linen;\"></div>\n\n\t<div style=\"text-align: center;\">\n\n\t\t<md-card style=\"display: inline-block; margin:auto;\">A Card v3</md-card>\n\t\t\n\t\t<md-card style=\"display: inline-block; margin:auto;\">A Card v3</md-card>\n\n\t\t<md-card style=\"display: inline-block; margin:auto;\">A Card v3</md-card>\n\n\t\t<md-card style=\"display: inline-block; margin:auto;\">A Card v3</md-card>\n\t\t\n\n\t</div>\n\n\t<div style=\"flex-grow:1; background-color: linen;\"></div>\n\n\n</div>\n\n \n<!-- \n\n<div layoiut-fill layout=\"column\" layout-align=\"center none\">\n\t<div layout=\"row\" layout-align=\"center none\">\n        <md-card>\n\n            <md-card-title>\n                <md-card-title-text>\n                    <span class=\"md-headline\">Card title</span>\n                </md-card-title-text>\n            </md-card-title>\n\n            <md-card-content>\n                Card content\n            </md-card-content>\n\n        </md-card>\n\t</div>\n</div>\n\n -->\n\n<app-select-data-form></app-select-data-form>"
 
 /***/ },
 /* 765 */
@@ -90400,7 +90400,7 @@ module.exports = "<main>\n    <md-card>\n        <md-card-title>Enter API URL</m
 /* 768 */
 /***/ function(module, exports) {
 
-module.exports = "<head>\n\t<!-- Latest compiled and minified CSS -->\n\t<!--<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\">-->\n\n\t<!-- Optional theme -->\n\t<!--<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css\" integrity=\"sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp\" crossorigin=\"anonymous\">-->\n\n\t<!-- Latest compiled and minified JavaScript -->\n\t<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\" integrity=\"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa\" crossorigin=\"anonymous\"></script>\n\n</head>\n\n<div class=\"container\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12 col-md-12 col-lg-12\">\n\t\t\t<h1>Visualization Page</h1>\n\t\t</div>\n\t</div>\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12 col-md-12 col-lg-12\">\n\t\t\t<form class=\"form-inline\">\n\t\t\t  <div class=\"form-group\">\n\t\t\t    <label class=\"sr-only\" for=\"exampleInput\">Link to visualization</label>\n\t\t\t    <div class=\"input-group\">\n\t\t\t      <div class=\"input-group-addon\">Link</div>\n\t\t\t      <input type=\"text\" class=\"form-control\" id=\"exampleInput\" placeholder=\"Link to Visualization\">\n\t\t\t    </div>\n\t\t\t  </div>\n\t\t\t  <button type=\"submit\" class=\"btn btn-primary\">Save</button>\n\t\t\t  <button type=\"submit\" class=\"btn btn-primary\">Delete</button>\n\t\t\t</form>\n\t\t</div>\n\t</div>\n\t<div class=\"row\">\n\t\t<div class=\"col-md-4\">\n\t\t\t  <img src=\"http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg\" class=\"img-fluid img-responsive\" alt=\"visualization\">\n\t\t</div>\n\t</div>\n</div>\n"
+module.exports = "<head>\n\t<!-- Latest compiled and minified CSS -->\n\t<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\">\n\n\t<!-- Optional theme -->\n\t<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css\" integrity=\"sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp\" crossorigin=\"anonymous\">\n\n\t<!-- Latest compiled and minified JavaScript -->\n\t<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\" integrity=\"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa\" crossorigin=\"anonymous\"></script>\n\n</head>\n\n<div class=\"container\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12 col-md-12 col-lg-12\">\n\t\t\t<h1>Visualization Page</h1>\n\t\t</div>\n\t</div>\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12 col-md-12 col-lg-12\">\n\t\t\t\n\t\t\t    <div class=\"input-group input-group-lg\">\n\t\t\t      \t<md-input placeholder=\"Enter Link\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t</md-input>\n\t\t\t  \t\t\n\t\t\t    </div>\n\t\t</div>\n\t\t<div class=\"col-lg-12\">\n\t\t    <div class=\"input-group input-group-lg\">\n\t\t      <input type=\"text\" class=\"form-control input-lg\" id=\"search-church\" placeholder=\"Your location (City, State, ZIP)\">\n\t\t      <span class=\"input-group-btn\">\n\t\t        <button md-raised-button color=\"primary\" >Save</button>\n\t\t  \t\t<button md-raised-button color=\"warn\" >Delete</button>\n\t\t      </span>\n\t\t    </div><!-- /input-group -->\n\t  \t</div><!-- /.col-lg-6 -->\n\n\t</div>\n\n\t\n\n\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12 col-md-12 col-lg-12\">\n\t\t\t  <img src=\"http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg\" class=\"img-fluid img-responsive\" alt=\"visualization\" style=\"width: 100%;\">\n\t\t</div>\n\t</div>\n</div>\n"
 
 /***/ },
 /* 769 */

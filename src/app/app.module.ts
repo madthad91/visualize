@@ -16,7 +16,7 @@ import { PlotComponent } from './components/plot/plot.component';
 import { SelectDataFormComponent } from './components/select-data-form/select-data-form.component';
 import { DemoPageComponent } from './components/demo-page/demo-page.component';
 import { ChartSelector } from './components/demo-page/chart-selector'
-import { nvD3} from 'ng2-nvD3';
+import { nvD3} from 'ng2-nvd3';
 
 import { ApiService } from './services/api.service';
 
