@@ -23,11 +23,16 @@ export class SelectDataFormComponent implements OnInit {
   cleanDecisionPath: string;
   selectedChild: any // stores the object user selected
   partialDataSet: any;
-
+  level: number; // keeps track of how deep the nested selected data is
   selections = {
     collectionReady: false,
     showGraph: false,
-    graphData: null
+    graphData: null,
+    dataCollection: null, // store the data collection they want to graph,
+    chartType: null, // store the type of chart they want display, default to BarChart for now
+    option: {
+
+    } // the chart option, property key for legends
   }; // stores the user selection (e.g what type of graph, data set, property)
 
   constructor(
@@ -51,6 +56,7 @@ export class SelectDataFormComponent implements OnInit {
   getJSONData(api: string) {
     this.decisionPath = ''; //clear decisionPath before getting data again
     this.cleanDecisionPath = ''; //clear decisionPath before getting data again
+    this.level = 0;
 
     api = api.trim();
     if (!api) { return; }    
@@ -61,7 +67,7 @@ export class SelectDataFormComponent implements OnInit {
 
         //this.children = 
         var temp = this.Parser.getProperties(this.data);
-        console.log(temp)
+        console.log("temp", temp)
         if(isArray){
           this.children = temp.map(function(x){
             x["isArray"] = true;
@@ -71,8 +77,8 @@ export class SelectDataFormComponent implements OnInit {
         else{
           this.children = temp;
         }
-
-        console.log(this.children);
+        console.log("json data", this.data)
+        console.log("children in api getter", this.children);
       });
   }
 
@@ -94,7 +100,7 @@ export class SelectDataFormComponent implements OnInit {
   }
 
   addNewFormPiece($event, child, i) {
-    console.log("add new form piece was called", $event, child, i);
+    console.log("add new form piece was called- event, child, i", $event, child, i);
     
     this.addPath(child, i);
     this.selectedChild = this.Parser.getValueFromPath(this.decisionPath, this.data);
@@ -118,25 +124,39 @@ export class SelectDataFormComponent implements OnInit {
   }
 
   public graphBarChart(cleanDecisionPath):void {
-    this.selectType(0)
-    this.selections.showGraph = true;
-    var temp = cleanDecisionPath.split('.')
-    var desiredKey = temp[temp.length-1]
-    var partialDataSet = RecursiveFilterService.converter(this.data, desiredKey, temp.length-1,function(x){return x[desiredKey];})
-    console.log(partialDataSet);
-    this.partialDataSet = JSON.stringify(partialDataSet);
-    //this.selections.graphData = this.Parser.getValueFromPath( this.decisionPath, this.data );
+    let desiredKey = 'name';
+    function testMap(o) {
+      return o[desiredKey];
+    }
+    let test = RecursiveFilterService.converter(this.data, 'name', 1, testMap);
+    console.log('graphBarChart called', test);
+    // this.selectType(0)
+    // this.selections.showGraph = true;
+    // var temp = cleanDecisionPath.split('.')
+    // var desiredKey = temp[temp.length-1]
+    // var partialDataSet = RecursiveFilterService.converter(this.data, desiredKey, temp.length-1,function(x){return x[desiredKey];})
+    // console.log("paartialDataset inside graphBarChart",partialDataSet);
+    // this.partialDataSet = JSON.stringify(partialDataSet);
   }
 
   selectType(e){
     this.chartType = "pieChart";
     this.options = AllOptions["boxPlotChart"];//this.chartType];
     this.data2 = AllData["boxPlotChart"];
-    console.log(this.options, this.data2)
+    console.log("options and data of form component at this point",this.options, this.data2)
+  }
+
+  selectChart(c) {
+    this.selections.chartType = c;
+    console.log("selection updated", this.selections.chartType);
+  }
+
+  showWhere() {
+    console.log("data is ", this.data, "children", this.children);
   }
 
   ngOnInit(): void {
-    //this.getData();
+
   }
 
 }

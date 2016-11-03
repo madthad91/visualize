@@ -1,57 +1,68 @@
 <main>
-	<md-card>
-		<md-card-title>Enter API URL</md-card-title>
-		<md-input #api placeholder="API" class="width-50"></md-input>
-		<button md-raised-button color="primary" (click)="getJSONData(api.value)">Get API</button>
-	</md-card>
+    <md-card>
+        <md-card-title>Enter API URL</md-card-title>
+        <md-input #api placeholder="API" class="width-50"></md-input>
+        <button md-raised-button color="primary" (click)="getJSONData(api.value)">Get API</button>
+    </md-card>
 
-	<md-card>
-		<div>Decision Path: {{ cleanDecisionPath }}</div>
-		<div>Data set: {{ partialDataSet }}</div>
-	</md-card>
+    <md-card>
+        <div>Decision Path: {{ cleanDecisionPath }}</div>
+        <div>Data set: {{ partialDataSet }}</div>
+    </md-card>
 
-	<md-card>
-		<md-card-title>{{ title }}</md-card-title>
-		<form>
-			<div>
-				Select:
-				<button md-icon-button [md-menu-trigger-for]="menu">
+    <md-card>
+        <md-card-title>{{ title }}</md-card-title>
+        <form>
+            <div>
+                Select:
+                <button md-icon-button [md-menu-trigger-for]="menu">
                     <md-icon>more_vert</md-icon>
                 </button>
-				<md-menu #menu="mdMenu">
-					<button (click)="addNewFormPiece($event, child, i)" md-menu-item *ngFor="let child of children">
+                <md-menu #menu="mdMenu">
+                    <button (click)="addNewFormPiece($event, child, i)" md-menu-item *ngFor="let child of children">
                     <span>
                       <button md-mini-fab color="warn" >{{child.type | propertyTypeConvert}}</button> {{child.name | isArray:child.isArray}}
                     </span>
-					</button>
-				</md-menu>
-			</div>
+                    </button>
+                </md-menu>
+            </div>
 
-			<div>
-				<md-checkbox name="agrees" [(ngModel)]="selections.collectionReady" (change)="openChart()">
-					this is my collection
-				</md-checkbox>
-
-				<button *ngIf="selections.collectionReady" md-icon-button [md-menu-trigger-for]="graphMenu">
+            <div>
+                <md-checkbox name="agrees" [(ngModel)]="selections.collectionReady" (change)="openChart()">
+                    this is my collection
+                </md-checkbox>
+                <!--button for selecting data set-->
+                <button *ngIf="selections.collectionReady" md-icon-button [md-menu-trigger-for]="graphMenu">
                   <md-icon>more_vert</md-icon>
                 </button>
 
-				<md-menu #graphMenu="mdMenu">
-					<button md-menu-item (click)="graphBarChart(cleanDecisionPath)">
+                <md-menu #graphMenu="mdMenu">
+                    <button md-menu-item (click)="graphBarChart(cleanDecisionPath)" (click)="selectChart('barChart')">
                     bar chart
                   </button>
-					<button md-menu-item>
+                    <button md-menu-item>
                     pie chart
                   </button>
-				</md-menu>
+                </md-menu>
 
-				<md-card *ngIf="selections.showGraph">
-					<nvd3 [options]="options" [data]="data2"></nvd3>
-					<!--<div>
+                <!--selecting the keys-->
+                <button *ngIf="selections.chartType" md-icon-button [md-menu-trigger-for]="propertyMenu">
+                  <md-icon>more_vert</md-icon>
+                </button>
+
+                <md-menu #propertyMenu="mdMenu">
+                    <button md-menu-item (click)="showWhere()">
+						test button
+                    </button>
+                </md-menu>
+
+                <md-card *ngIf="selections.showGraph">
+                    <nvd3 [options]="options" [data]="data2"></nvd3>
+                    <!--<div>
             run graph for {{ selections.graphData | json }}
         </div>-->
-				</md-card>
-			</div>
-		</form>
-	</md-card>
+                </md-card>
+            </div>
+        </form>
+    </md-card>
 </main>
