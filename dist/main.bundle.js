@@ -69354,6 +69354,7 @@ var DemoPageComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* unused harmony export Plot */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return HomeComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -69365,8 +69366,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+var Plot = (function () {
+    function Plot() {
+    }
+    return Plot;
+}());
+var PLOTS = [
+    { id: 1, title: "My First Plot", description: "A plot about firsts", img_url: "https://material.angularjs.org/latest/img/washedout.png" },
+    { id: 2, title: "Puppy Plot", description: "This plot is potentially about puppies", img_url: "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg" }
+];
 var HomeComponent = (function () {
     function HomeComponent() {
+        this.plots = PLOTS;
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
@@ -90527,7 +90538,7 @@ module.exports = " <div>\n    <div>Chart type: <chart-selector (select)=\"select
 /* 766 */
 /***/ function(module, exports) {
 
-module.exports = "<!-- <p>\n    home works!\n</p> -->\n\n\n\n<div style=\"display: flex; padding-top: 20px;\" layout=\"row\" layout-align=\"center center\">\n\n\t<div style=\"flex-grow: 1; background-color: linen;\"></div>\n\n\t<div style=\"text-align: center;\">\n\n        <md-card class=\"demo-card-blue md-card-flat\" style=\"display: inline-block; margin:auto;\">\n            <md-card-header>\n              <md-card-title>See Dee Tee</md-card-title>\n              <md-card-subtitle>Bar graph of CDT resource utilization per Tower</md-card-subtitle>\n            </md-card-header>\n            <img md-card-image src=\"https://material.angularjs.org/latest/img/washedout.png\">\n\n            <md-card-actions>\n              <button md-button>View</button>\n              <button md-button>Share</button>\n            </md-card-actions>\n\t\t</md-card>\n\n        <md-card class=\"demo-card-blue md-card-flat\" style=\"display: inline-block; margin:auto;\">\n            <md-card-header>\n              <md-card-title>Flower Power</md-card-title>\n              <md-card-subtitle>Line graph of flower power over time</md-card-subtitle>\n            </md-card-header>\n            <img md-card-image src=\"https://material.angularjs.org/latest/img/washedout.png\">\n\n            <md-card-actions>\n              <button md-button>View</button>\n              <button md-button>Share</button>\n            </md-card-actions>\n        </md-card>\n\n        <md-card class=\"demo-card-blue md-card-flat\" style=\"display: inline-block; margin:auto;\">\n            <md-card-header>\n              <md-card-title>See Dee Tee</md-card-title>\n              <md-card-subtitle>Bar graph of CDT resource utilization per Tower</md-card-subtitle>\n            </md-card-header>\n            <img md-card-image src=\"https://material.angularjs.org/latest/img/washedout.png\">\n\n            <md-card-actions>\n              <button md-button>View</button>\n              <button md-button>Share</button>\n            </md-card-actions>\n        </md-card>\n\n\t\t<md-card class=\"demo-card-blue md-card-flat\" style=\"display: inline-block; margin:auto;\">\n            <md-card-header>\n              <md-card-title>See Dee Tee</md-card-title>\n              <md-card-subtitle>Bar graph of CDT resource utilization per Tower</md-card-subtitle>\n            </md-card-header>\n            <img md-card-image src=\"https://material.angularjs.org/latest/img/washedout.png\">\n\n            <md-card-actions>\n              <button md-button>View</button>\n              <button md-button>Share</button>\n            </md-card-actions>\n\t\t</md-card>\n\n\n\t</div>\n\n\t<div style=\"flex-grow:1; background-color: linen;\"></div>\n\n\n</div>\n\n\n\n\n<!--\n\n<div layoiut-fill layout=\"column\" layout-align=\"center none\">\n\t<div layout=\"row\" layout-align=\"center none\">\n        <md-card>\n\n            <md-card-title>\n                <md-card-title-text>\n                    <span class=\"md-headline\">Card title</span>\n                </md-card-title-text>\n            </md-card-title>\n\n            <md-card-content>\n                Card content\n            </md-card-content>\n\n        </md-card>\n\t</div>\n</div>\n\n -->\n\n<app-select-data-form></app-select-data-form>\n"
+module.exports = "<!-- <p>\n    home works!\n</p> -->\n\n\n\n<div style=\"display: flex; padding-top: 20px;\" layout=\"row\" layout-align=\"center center\">\n\n\t<div style=\"flex-grow: 1; background-color: linen;\"></div>\n\n\t<div style=\"text-align: center;\">\n\n\n    <md-card *ngFor=\"let plot of plots\" class=\"demo-card-blue md-card-flat\" style=\"display: inline-block; margin:auto;\">\n      <md-card-header>\n        <md-card-title>{{plot.title}}</md-card-title>\n        <md-card-subtitle>{{plot.description}}</md-card-subtitle>\n      </md-card-header>\n\n      <img md-card-image src={{plot.img_url}}>\n\n      <md-card-actions>\n        <button md-button>View</button>\n        <button md-button>Share</button>\n      </md-card-actions>\n\t\t</md-card>\n\n\n\n\t</div>\n\n\t<div style=\"flex-grow:1; background-color: linen;\"></div>\n\n\n</div>\n\n\n\n\n<!--\n\n<div layoiut-fill layout=\"column\" layout-align=\"center none\">\n\t<div layout=\"row\" layout-align=\"center none\">\n        <md-card>\n\n            <md-card-title>\n                <md-card-title-text>\n                    <span class=\"md-headline\">Card title</span>\n                </md-card-title-text>\n            </md-card-title>\n\n            <md-card-content>\n                Card content\n            </md-card-content>\n\n        </md-card>\n\t</div>\n</div>\n\n -->\n\n<app-select-data-form></app-select-data-form>\n"
 
 /***/ },
 /* 767 */

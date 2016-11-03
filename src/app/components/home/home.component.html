@@ -10,57 +10,21 @@
 
 	<div style="text-align: center;">
 
-        <md-card class="demo-card-blue md-card-flat" style="display: inline-block; margin:auto;">
-            <md-card-header>
-              <md-card-title>See Dee Tee</md-card-title>
-              <md-card-subtitle>Bar graph of CDT resource utilization per Tower</md-card-subtitle>
-            </md-card-header>
-            <img md-card-image src="https://material.angularjs.org/latest/img/washedout.png">
 
-            <md-card-actions>
-              <button md-button>View</button>
-              <button md-button>Share</button>
-            </md-card-actions>
+    <md-card *ngFor="let plot of plots" class="demo-card-blue md-card-flat" style="display: inline-block; margin:auto;">
+      <md-card-header>
+        <md-card-title>{{plot.title}}</md-card-title>
+        <md-card-subtitle>{{plot.description}}</md-card-subtitle>
+      </md-card-header>
+
+      <img md-card-image src={{plot.img_url}}>
+
+      <md-card-actions>
+        <button md-button>View</button>
+        <button md-button>Share</button>
+      </md-card-actions>
 		</md-card>
 
-        <md-card class="demo-card-blue md-card-flat" style="display: inline-block; margin:auto;">
-            <md-card-header>
-              <md-card-title>Flower Power</md-card-title>
-              <md-card-subtitle>Line graph of flower power over time</md-card-subtitle>
-            </md-card-header>
-            <img md-card-image src="https://material.angularjs.org/latest/img/washedout.png">
-
-            <md-card-actions>
-              <button md-button>View</button>
-              <button md-button>Share</button>
-            </md-card-actions>
-        </md-card>
-
-        <md-card class="demo-card-blue md-card-flat" style="display: inline-block; margin:auto;">
-            <md-card-header>
-              <md-card-title>See Dee Tee</md-card-title>
-              <md-card-subtitle>Bar graph of CDT resource utilization per Tower</md-card-subtitle>
-            </md-card-header>
-            <img md-card-image src="https://material.angularjs.org/latest/img/washedout.png">
-
-            <md-card-actions>
-              <button md-button>View</button>
-              <button md-button>Share</button>
-            </md-card-actions>
-        </md-card>
-
-		<md-card class="demo-card-blue md-card-flat" style="display: inline-block; margin:auto;">
-            <md-card-header>
-              <md-card-title>See Dee Tee</md-card-title>
-              <md-card-subtitle>Bar graph of CDT resource utilization per Tower</md-card-subtitle>
-            </md-card-header>
-            <img md-card-image src="https://material.angularjs.org/latest/img/washedout.png">
-
-            <md-card-actions>
-              <button md-button>View</button>
-              <button md-button>Share</button>
-            </md-card-actions>
-		</md-card>
 
 
 	</div>
