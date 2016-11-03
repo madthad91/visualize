@@ -36,7 +36,7 @@
             </md-menu>
         </div>
     </md-card>
-    <md-card *ngIf="showLegendProperty()">
+    <md-card *ngIf="selections.legendProperty">
         <md-card-title>Select your data points for {{ selections.chartType }}</md-card-title>
         <div>
             <button md-icon-button [md-menu-trigger-for]="menu">

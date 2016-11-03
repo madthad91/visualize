@@ -14,12 +14,11 @@ import { RecursiveFilterService } from '../../services/recursive-filter.service'
 export class SelectDataFormComponent implements OnInit {
   options;
   data2;
-  // chartTypes = [
-  //   'lineChart',
-  //   'discreteBarChart',
-  //   'pieChart'
-  // ];
-  chartTypes = ChartTypes;
+  chartTypes = [
+    'lineChart',
+    'discreteBarChart',
+    'pieChart'
+  ];
   title = 'Select your data collection';
 
   data: any; //stores the data receive back from Jgetter  
@@ -40,7 +39,6 @@ export class SelectDataFormComponent implements OnInit {
     dataProperty: null,
     chartLegendValues: null,
     chartDataValues: null,
-    userChoicesForLegend: ""
   }; // stores the user selection (e.g what type of graph, data set, property)
 
   constructor(
@@ -73,7 +71,6 @@ export class SelectDataFormComponent implements OnInit {
       dataProperty: null,
       chartLegendValues: null,
       chartDataValues: null,
-      userChoicesForLegend: ""
     };
   }
 
@@ -135,11 +132,8 @@ export class SelectDataFormComponent implements OnInit {
   // }
 
   saveValuesForLegend(legend) {
+    let desiredKey = legend;
     this.selections.legendProperty = legend;
-    this.selections.userChoicesForLegend = this.selections.userChoicesForLegend ? this.selections.userChoicesForLegend + "." + legend : legend;
-    if (!this.showLegendProperty()) {
-      this.selections.possibleLegends = this.Parser.getPossibleLegends(this.Parser.getValueFromPath(this.selections.userChoicesForLegend, this.data));
-    }
   }
 
   saveValuesForDataPoints(propertyOfDataPoint) {
@@ -152,10 +146,6 @@ export class SelectDataFormComponent implements OnInit {
     this.selections.dataProperty = propertyOfDataPoint;
     this.selections.chartDataValues = RecursiveFilterService.converter(this.data, desiredKey, 1, helper);
     console.log(this.selections);
-  }
-
-  showLegendProperty() {
-    return (typeof this.selections.legendProperty !== "object");
   }
 
 
