@@ -3,14 +3,59 @@
         <md-card-title>Enter API URL</md-card-title>
         <md-input #api placeholder="API" class="width-50"></md-input>
         <button md-raised-button color="primary" (click)="getJSONData(api.value)">Get API</button>
+        <button md-raised-button color="warn" (click)="resetSelections()">Reset Selection</button>
+    </md-card>
+    <md-card *ngIf="data">
+        <md-card-title>Select your chart type</md-card-title>
+        <div>
+            <button md-icon-button [md-menu-trigger-for]="menu">
+                <md-icon>more_vert</md-icon>
+            </button>
+            <md-menu y-position="below" x-position="after" #menu="mdMenu">
+                <button md-menu-item *ngFor="let chart of chartTypes">
+                <span>
+                    <button md-menu-item (click)="updateSelectedChart(chart)"> {{chart}} </button>
+                </span>
+                </button>
+            </md-menu>
+        </div>
+    </md-card>
+    <md-card *ngIf="selections.chartType">
+        <md-card-title>Select your label for {{ selections.chartType }}</md-card-title>
+        <div>
+            <button md-icon-button [md-menu-trigger-for]="menu">
+                <md-icon>more_vert</md-icon>
+            </button>
+            <md-menu y-position="below" x-position="after" #menu="mdMenu">
+                <button md-menu-item *ngFor="let legend of selections.possibleLegends">
+                <span>
+                    <button md-menu-item (click)="saveValuesForLegend(legend)"> {{ legend }}</button>
+                </span>
+                </button>
+
+            </md-menu>
+        </div>
+    </md-card>
+    <md-card *ngIf="showLegendProperty()">
+        <md-card-title>Select your data points for {{ selections.chartType }}</md-card-title>
+        <div>
+            <button md-icon-button [md-menu-trigger-for]="menu">
+                <md-icon>more_vert</md-icon>
+            </button>
+            <md-menu y-position="below" x-position="after" #menu="mdMenu">
+                <button md-menu-item *ngFor="let legend of selections.possibleLegends">
+                <span>
+                    <button md-menu-item (click)="saveValuesForDataPoints(legend)"> {{ legend }}</button>
+                </span>
+                </button>
+            </md-menu>
+        </div>
+    </md-card>
+    <md-card *ngIf="selections.showGraph">
+        <nvd3 [options]="options" [data]="data2"></nvd3>
     </md-card>
 
-    <md-card>
-        <div>Decision Path: {{ cleanDecisionPath }}</div>
-        <div>Data set: {{ partialDataSet }}</div>
-    </md-card>
-
-    <md-card>
+    <!--<md-card>
         <md-card-title>{{ title }}</md-card-title>
         <form>
             <div>
@@ -31,7 +76,7 @@
                 <md-checkbox name="agrees" [(ngModel)]="selections.collectionReady" (change)="openChart()">
                     this is my collection
                 </md-checkbox>
-                <!--button for selecting data set-->
+
                 <button *ngIf="selections.collectionReady" md-icon-button [md-menu-trigger-for]="graphMenu">
                   <md-icon>more_vert</md-icon>
                 </button>
@@ -45,7 +90,7 @@
                   </button>
                 </md-menu>
 
-                <!--selecting the keys-->
+
                 <button *ngIf="selections.chartType" md-icon-button [md-menu-trigger-for]="propertyMenu">
                   <md-icon>more_vert</md-icon>
                 </button>
@@ -58,11 +103,9 @@
 
                 <md-card *ngIf="selections.showGraph">
                     <nvd3 [options]="options" [data]="data2"></nvd3>
-                    <!--<div>
-            run graph for {{ selections.graphData | json }}
-        </div>-->
+
                 </md-card>
             </div>
         </form>
-    </md-card>
+    </md-card>-->
 </main>

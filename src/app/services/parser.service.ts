@@ -52,6 +52,12 @@ export class ParserService {
     }
   }
 
+  getPossibleLegends(arr) {
+    // return the properties of all the object contained in arr argument
+    // assumes all objects in arr has same properties
+    return Object.keys(arr[0]);
+  }
+
   // generator code
   constructor() { }
 }
