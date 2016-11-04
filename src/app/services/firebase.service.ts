@@ -16,6 +16,7 @@ export class FirebaseService {
   save(user, chartType, chartDataValues, api, graphURL) {
 	    this.items.push({
 	    	user: user, 
+	    	// chartName: chartName, // Still needs to be added
 	    	chartType: chartType, 
 	    	chartDataValues: chartDataValues, 
 	    	api: api,

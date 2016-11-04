@@ -4,38 +4,6 @@
 
 <app-firebase></app-firebase>
 
-<div style="display: flex; padding-top: 20px;" layout="row" layout-align="center center">
-
-	<div style="flex-grow: 1; background-color: linen;"></div>
-
-	<div style="text-align: center;">
-
-
-    <md-card *ngFor="let plot of plots" class="demo-card-blue md-card-flat" style="display: inline-block; margin:auto;">
-      <md-card-header>
-        <md-card-title>{{plot.title}}</md-card-title>
-        <md-card-subtitle>{{plot.description}}</md-card-subtitle>
-      </md-card-header>
-
-      <img md-card-image src={{plot.img_url}}>
-
-      <md-card-actions>
-        <button md-button>View</button>
-        <button md-button>Share</button>
-      </md-card-actions>
-		</md-card>
-
-
-
-	</div>
-
-	<div style="flex-grow:1; background-color: linen;"></div>
-
-
-</div>
-
-
-
 
 <!--
 
