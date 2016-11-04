@@ -1,9 +1,24 @@
 
 <span style="padding: 10px;"> <!-- Div for input -->
 			<md-input style="flex-grow: 1; width: 80%;" placeholder="Enter Link"></md-input>
+			{{info}}
 	        <button md-raised-button color="primary" >Save</button>
-	  		<button md-raised-button color="warn" >Delete</button>			
+	  		<button md-raised-button color="warn" (click)="goBack()">Back</button>			
 </span>
+
+<md-card>
+   <md-card-title>Key of selected graph: {{key}}</md-card-title>
+</md-card>
+
+<!-- <md-list>
+   <md-list-item *ngFor="let item of items | async">
+   		<h3> User: {{item.user}} </h3>
+   		<h3> Chart Type: {{item.chartType}} </h3>
+   		<h3> Chart Data Values: {{item.chartDataValues}} </h3>
+   		<h3> API: {{item.api}} </h3>
+   		<h3> Graph URL: {{item.graphURL}} </h3>   		
+   </md-list-item>
+</md-list> -->
 
 <div style="padding: 20px;">
 	  <img src="http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg" class="img-fluid img-responsive" alt="visualization" style="width: 100%;">
