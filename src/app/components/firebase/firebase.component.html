@@ -1,0 +1,20 @@
+<p>
+  firebase works!
+</p>
+
+<md-list>
+   <md-list-item *ngFor="let item of items | async">
+   		<button md-raised-button color="primary" class="margin-10">View</button>
+   		<button md-raised-button color="primary" class="margin-10" (click)="deleteItem(item.$key)">Delete</button>
+   		<h3> Graph URL: {{item.graphURL}} </h3>   		
+   </md-list-item>
+</md-list>
+
+<md-input #user placeholder="user" class="width-50"></md-input>
+<md-input #charttype placeholder="user" class="width-50"></md-input>
+<md-input #chartdatavalues placeholder="chartdatavalues" class="width-50"></md-input>
+<md-input #api placeholder="api" class="width-50"></md-input>
+<md-input #graphurl placeholder="graphurl" class="width-50"></md-input>
+<button md-raised-button color="primary" (click)="save(user.value, charttype.value, chartdatavalues.value, api.value, graphurl.value)">
+  Save
+</button>

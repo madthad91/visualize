@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,11 @@ export class AppComponent {
   selectedDirection:string = 'down';
   selected: string = '';
 
-  constructor(){
+  constructor(public af: AngularFire){
+    /*this.af.auth.login({
+      provider: AuthProviders.Anonymous
+    });*/
+
     this.tabs=[{
       name: "Main",
       url:"/",

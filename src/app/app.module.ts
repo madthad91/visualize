@@ -20,6 +20,20 @@ import { nvD3} from 'ng2-nvd3';
 
 import { ApiService } from './services/api.service';
 import { IsArrayPipe } from './pipes/is-array.pipe';
+import { FirebaseComponent } from './components/firebase/firebase.component';
+import { 
+  AngularFireModule, 
+  AuthMethods, 
+  AuthProviders 
+} from "angularfire2";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCdlyXLG8B75rDYQf-N_CtM_cBR8cLHqAQ",
+  authDomain: "teamsomethingcool-54869.firebaseapp.com",
+  databaseURL: "https://teamsomethingcool-54869.firebaseio.com",
+  storageBucket: "teamsomethingcool-54869.appspot.com",
+  messagingSenderId: "553854869745"
+};
 
 @NgModule({
   declarations: [
@@ -34,10 +48,15 @@ import { IsArrayPipe } from './pipes/is-array.pipe';
     DemoPageComponent,
     ChartSelector,
     nvD3,
-    IsArrayPipe
+    IsArrayPipe,
+    FirebaseComponent
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig,{
+      provider: AuthProviders.Anonymous, //AuthProviders.Google,
+      method: AuthMethods.Anonymous //AuthMethods.Popup
+    }),
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
