@@ -149,6 +149,7 @@ class DataTracker {
 
 class dataReMapper {
   public static makeDonut(labels: any[], values: any[]) {
+    console.log("makeDonut called with label", labels, "values", values);
     let res = [];
     labels.forEach(function (val, idx) {
       res.push({ key: labels[idx], y: values[idx] })
