@@ -16,9 +16,10 @@ export class SelectDataFormComponent implements OnInit {
   options;
   data2;
   chartTypes = [
-    'lineChart',
+    'donutChart',
     'discreteBarChart',
-    'pieChart'
+    'pieChart',
+    'lineChart'
   ];
   title = 'Select your data collection';
 
@@ -118,6 +119,7 @@ export class SelectDataFormComponent implements OnInit {
     DataSetTrackerService.setChartType(c);
     let temp2 = DataSetTrackerService.formTracker.makeFormSet(temp.chartType, 0);
     temp.selectYour = temp2.selectYour;
+    temp.inputType = temp2.inputType;
     if (Array.isArray(temp.dataCollection) && temp.dataCollection.length > 0) {
       temp.decisionPath = "0";
       temp.dataCollection = temp.dataCollection[0];
@@ -155,66 +157,42 @@ export class SelectDataFormComponent implements OnInit {
   //   this.selections.chartDataValues = RecursiveFilterService.converter(this.data, desiredKey, 1, mapper);
   // }
 
-  saveValuesForLegend(legend, idx) {
-
-    //going back to the old days
-    this.selections[idx].decisionPath = this.addPath(this.selections[idx].decisionPath, legend);
-    let temp_child = this.Parser.getValueFromPath(this.selections[idx].decisionPath, this.originalDataSet);
-    console.log('the temp child is', temp_child);
-    let propSet = this.Parser.getProperties(temp_child);
-    if (propSet) {
-      this.selections[idx].dropdownOptions = propSet;
-    }
-    else {
-      var temp_depth = 0;
-      if (this.selections[idx].decisionPath[0] == "0") {
-        temp_depth = temp_depth + 1;
-      }
-      this.selections[idx].decisionPath = this.selections[idx].decisionPath.replace(/0./g, '');
-      console.log('new decisionPath is ', this.selections[idx].decisionPath);
-      temp_depth = temp_depth + (this.selections[idx].decisionPath.split('.').length - 1)
-      this.selections[idx].graphData = RecursiveFilterService.converter(this.originalDataSet,
-        legend["name"],
-        temp_depth,
-        function (x) { return x[legend["name"]]; });
-
-      DataSetTrackerService.setNewDataSet(this.selections[idx].selectYour, this.selections[idx].graphData);
-      if (DataSetTrackerService.isDone(this.selections[idx].chartType, idx)) {
-        console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
-        alert("You're done");
-        //ng-if for showing the graph template code.
-        this.showGraph = true;
-        this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
-        let arrs = DataSetTrackerService.getAllDataSets();
-        this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1]);
+  saveValuesForLegend(legend, idx:number, selectionType) {
+    if (selectionType == "dropdown") {
+      //going back to the old days
+      this.selections[idx].decisionPath = this.addPath(this.selections[idx].decisionPath, legend);
+      let temp_child = this.Parser.getValueFromPath(this.selections[idx].decisionPath, this.originalDataSet);
+      console.log('the temp child is', temp_child);
+      let propSet = this.Parser.getProperties(temp_child);
+      if (propSet) {
+        this.selections[idx].dropdownOptions = propSet;
       }
       else {
-        let temp = new Selection();
-        let temp2 = DataSetTrackerService.formTracker.makeFormSet(this.selections[idx].chartType, idx + 1);
-
-        temp.selectYour = temp2.selectYour;
-        temp.dataCollection = this.originalDataSet;
-        temp.chartType = this.selections[idx].chartType;
-
-        //if the beginning of the dataset is an array, assume arrays are uniform
-        //and take the first index so the user doesn't have to pick an index
-        if (Array.isArray(temp.dataCollection) && temp.dataCollection.length > 0) {
-          temp.decisionPath = "0";
-          temp.dataCollection = temp.dataCollection[0];
+        var temp_depth = 0;
+        if (this.selections[idx].decisionPath[0] == "0") {
+          temp_depth = temp_depth + 1;
         }
+        //this.selections[idx].decisionPath = this.selections[idx].decisionPath.replace(/0./g, '');
+        var temp_decisionPath = this.selections[idx].decisionPath.replace(/0./g, '');
+        console.log('the temp decisionPath is ', temp_decisionPath);
+        temp_depth = temp_depth + (temp_decisionPath.split('.').length - 1)
+        this.selections[idx].graphData = RecursiveFilterService.converter(this.originalDataSet,
+          legend["name"],
+          temp_depth,
+          function (x) { return x[legend["name"]]; });
 
-        //get first object's keys to present to the user
-        let propSet = this.Parser.getProperties(temp.dataCollection);
-        if (propSet) {
-          temp.dropdownOptions = propSet;
-        }
-        else {
-          alert("no properties left. handle this");
-        }
-        this.selections.push(temp);
+        DataSetTrackerService.setNewDataSet(this.selections[idx].selectYour, this.selections[idx].graphData);
+        this.decideIfDone(idx);
       }
 
+
+
     }
+    else if (selectionType == "text") {
+      DataSetTrackerService.setNewDataSet(this.selections[idx].selectYour, legend.value);
+        this.decideIfDone(idx);
+    }
+    console.log('datasettracker', DataSetTrackerService.dataTracker);
     //end going back
     //console.log('inside savevaluesforlegend',legend, idx )
     // let desiredKey = legend;
@@ -246,8 +224,71 @@ export class SelectDataFormComponent implements OnInit {
   // }
 
 
+public decideIfDone(idx:number){
+  let decision = DataSetTrackerService.isDone(this.selections[idx].chartType, idx)
+  if (decision["type"] =="single" && decision["decision"] ==true) {
+          console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
+          alert("You're done");
 
+          //this.showGraph - ng-if for showing the graph template code.
+          this.showGraph = true;
+          this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
+          let arrs = DataSetTrackerService.getAllDataSets();
+          this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1]);
+        }
+        else {
+          if(decision["type"] == "complex" && decision["decision"]){
+            //ask if thye wanna keep going 
+            //if they say yes, then run below code
+            //if they say no, then make graph using code above
+            if(window.confirm('Are you done picking datasets?')){
+              console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
+              alert("You're done");
 
+              //this.showGraph - ng-if for showing the graph template code.
+              this.showGraph = true;
+              this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
+              let arrs = DataSetTrackerService.getAllDataSets();
+              this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1], arrs[2]);
+              
+            }
+            else{
+              this.makeNewSelection(idx);
+            }
+          }
+          else{
+            this.makeNewSelection(idx);
+          }
+          
+        }
+}
+
+  public makeNewSelection(idx:number){
+    let temp = new Selection();
+          let temp2 = DataSetTrackerService.formTracker.makeFormSet(this.selections[idx].chartType, idx + 1);
+
+          temp.selectYour = temp2.selectYour;
+          temp.inputType = temp2.inputType;
+          temp.dataCollection = this.originalDataSet;
+          temp.chartType = this.selections[idx].chartType;
+
+          //if the beginning of the dataset is an array, assume arrays are uniform
+          //and take the first index so the user doesn't have to pick an index
+          if (Array.isArray(temp.dataCollection) && temp.dataCollection.length > 0) {
+            temp.decisionPath = "0";
+            temp.dataCollection = temp.dataCollection[0];
+          }
+
+          //get first object's keys to present to the user
+          let propSet = this.Parser.getProperties(temp.dataCollection);
+          if (propSet) {
+            temp.dropdownOptions = propSet;
+          }
+          else {
+            alert("no properties left. handle this");
+          }
+          this.selections.push(temp);
+  }
 
 
 
@@ -346,4 +387,5 @@ class Selection {
   dropdownOptions = null;
   decisionPath = "";
   selectYour = "";
+  inputType = "";
 }

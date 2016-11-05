@@ -1,53 +1,58 @@
 <main>
-    <md-card>
-        <div style="margin-left:-10px">
-        <button md-mini-fab color="accent" style="color: white; display:inline;" readonly>1
+	<md-card>
+		<div style="margin-left:-10px">
+			<button md-mini-fab color="accent" style="color: white; display:inline;" readonly>1
         </button>
-        <md-card-title style="display:inline; ">Enter API URL</md-card-title>
-        </div>
-        <br>
-        <md-input #api placeholder="API" class="width-50"></md-input>
-        <button md-raised-button color="primary" (click)="getJSONData(api.value)">Get API</button>
-    </md-card>
-    <md-card *ngIf="data">
-         <div style="margin-left:-10px">
-        <button md-mini-fab color="accent" style="color: white; display:inline;" readonly>2
+			<md-card-title style="display:inline; ">Enter API URL</md-card-title>
+		</div>
+		<br>
+		<md-input #api placeholder="API" class="width-50"></md-input>
+		<button md-raised-button color="primary" (click)="getJSONData(api.value)">Get API</button>
+	</md-card>
+	<md-card *ngIf="data">
+		<div style="margin-left:-10px">
+			<button md-mini-fab color="accent" style="color: white; display:inline;" readonly>2
         </button>
-        <md-card-title style="display:inline;">Select your chart type</md-card-title>
-         </div>
-         <br>
-        <div>
-            <button md-icon-button [md-menu-trigger-for]="menu">
+			<md-card-title style="display:inline;">Select your chart type</md-card-title>
+		</div>
+		<br>
+		<div>
+			<button md-icon-button [md-menu-trigger-for]="menu">
                 <md-icon>more_vert</md-icon>
             </button>
-            <md-menu y-position="below" x-position="after" #menu="mdMenu">
-                <button md-menu-item *ngFor="let chart of chartTypes">
+			<md-menu y-position="below" x-position="after" #menu="mdMenu">
+				<button md-menu-item *ngFor="let chart of chartTypes">
                 <span>
                     <button md-menu-item (click)="updateSelectedChart(chart)"> {{chart}} </button>
-                </span>
-                </button>
-            </md-menu>
-        </div>
-    </md-card>
-    <!--*ngIf="selection.chartType" -->
-    <md-card *ngFor="let selection of selections; let i=index">
-        <span>{{selection.decisionPath | json}}</span>
-        <md-card-title>Select your {{selection.selectYour}} for {{ selection.chartType }}</md-card-title>
-        <div>
-            <button md-icon-button [md-menu-trigger-for]="menu">
+				</span>
+				</button>
+			</md-menu>
+		</div>
+	</md-card>
+	<!--*ngIf="selection.chartType" -->
+	<md-card *ngFor="let selection of selections; let i=index">
+		<span>{{selection.decisionPath | json}}</span>
+		<md-card-title>Select your {{selection.selectYour}} for {{ selection.chartType }}</md-card-title>
+		<div *ngIf="selection.inputType == 'dropdown'">
+			<button md-icon-button [md-menu-trigger-for]="menu">
                 <md-icon>more_vert</md-icon>
             </button>
-            <md-menu y-position="below" x-position="after" #menu="mdMenu">
-                <button md-menu-item *ngFor="let option of selection.dropdownOptions">
+			<md-menu y-position="below" x-position="after" #menu="mdMenu">
+				<button md-menu-item *ngFor="let option of selection.dropdownOptions">
                 <span>
-                    <button md-menu-item (click)="saveValuesForLegend(option, i)"> {{ option.name }}</button>
-                </span>
-                </button>
+                    <button md-menu-item (click)="saveValuesForLegend(option, i, 'dropdown')"> {{ option.name }}</button>
+				</span>
+				</button>
 
-            </md-menu>
-        </div>
-    </md-card>
-    <!--<md-card *ngIf="selections.legendProperty">
+			</md-menu>
+		</div>
+		<span *ngIf="selection.inputType == 'text'">
+            <md-input #labelName placeholder="Enter Label Name" class="width-50"></md-input>
+            <button md-raised-button color="primary" (click)="saveValuesForLegend(labelName, i, 'text')">Submit</button>
+            <!--<input type="text"/><button md-raised-button color="warn">submit label name</button>-->
+            </span>
+	</md-card>
+	<!--<md-card *ngIf="selections.legendProperty">
         <md-card-title>Select your data points for {{ selections.chartType }}</md-card-title>
         <div>
             <button md-icon-button [md-menu-trigger-for]="menu">
@@ -62,14 +67,14 @@
             </md-menu>
         </div>
     </md-card>-->
-    <md-card *ngIf="data"> 
-        <button md-raised-button color="warn" (click)="resetSelections()">Reset Selection</button>
-    </md-card>
-    <md-card *ngIf="showGraph">
-        <nvd3 [options]="options" [data]="data2"></nvd3>
-    </md-card>
+	<md-card *ngIf="data">
+		<button md-raised-button color="warn" (click)="resetSelections()">Reset Selection</button>
+	</md-card>
+	<md-card *ngIf="showGraph">
+		<nvd3 [options]="options" [data]="data2"></nvd3>
+	</md-card>
 
-    <!--<md-card>
+	<!--<md-card>
         <md-card-title>{{ title }}</md-card-title>
         <form>
             <div>

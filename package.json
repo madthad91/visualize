@@ -25,7 +25,7 @@
     "@types/jasmine": "^2.2.30",
     "@types/lodash": "^4.14.37",
     "@types/node": "^6.0.42",
-    "angular-cli": "1.0.0-beta.18",
+    "angular-cli": "^1.0.0-beta.19-3",
     "angularfire2": "^2.0.0-beta.6",
     "codelyzer": "1.0.0-beta.1",
     "core-js": "^2.4.1",

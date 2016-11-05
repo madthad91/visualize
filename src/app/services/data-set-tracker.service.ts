@@ -89,17 +89,35 @@ class FormTracker {
 
   private chartType: string;
 
-  public isDone(chartType: string, idx: number): boolean {
+  public isDone(chartType: string, idx: number): any {
     switch (chartType) {
       case "discreteBarChart":
       case "pieChart":
       case "donutChart":
         if (idx >= 1)
-          return true
+          return {
+            'decision': true,
+            'type': 'single'
+          }
         else if (idx < 1)
-          return false;
-      default:
-        return true;
+          return {
+            'decision': false,
+            'type': 'single'
+          }
+      default:{
+        if(idx %3 == 2)
+        return {
+          'decision': true,
+          'type': 'complex'
+        }
+        else{
+          return {
+            'decision':false,
+            'type': 'complex'
+          }
+        }
+      }
+        
     }
 
   }
@@ -113,22 +131,37 @@ class FormTracker {
         if (idx == 0) {
           return {
             selectYour: "labels",
-            chartType: chartType
+            chartType: chartType,
+            inputType: "dropdown"
           }
         }
         else {
           return {
             selectYour: "values",
-            chartType: chartType
+            chartType: chartType,
+            inputType: "dropdown"
           }
         }
 
       default:
+      if(idx % 3 ==0){
+        let title = this.stringifyNumber(Math.floor(idx / 3 ) +1);
+        return{
+          selectYour: title + " set of labels",
+          chartType: chartType,
+          inputType: "text"
+        }
+      }
+      else{
+        let picky = idx % 3;
         let title = this.stringifyNumber(idx);
         return {
           selectYour: title + " set of values",
-          chartType: chartType
+          chartType: chartType,
+          inputType: "dropdown"
         };
+      }
+       
     }
   }
 
@@ -142,7 +175,7 @@ class DataTracker {
   public chartType: string;
   public dataSets: any = {};
 
-  public addDataSet(key: string, data: any[]): void {
+  public addDataSet(key: string, data: any): void {
 
   }
 }
