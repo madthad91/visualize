@@ -249,8 +249,8 @@ public decideIfDone(idx:number){
               this.showGraph = true;
               this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
               let arrs = DataSetTrackerService.getAllDataSets();
-              this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1], arrs[2]);
-              
+              this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs);
+              console.log("arguments from form",arrs);
             }
             else{
               this.makeNewSelection(idx);
