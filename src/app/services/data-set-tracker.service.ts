@@ -70,7 +70,7 @@ export class DataSetTrackerService {
       case "pieChart":
         return dataReMapper.makePieChart(args[0], args[1]);
       case "lineChart":
-        return dataReMapper.makeLineChart(graphChoice, args[0], args[1]);
+        return dataReMapper.makeLineChart(graphChoice, args[1], args[2]);
     }
   }
 
