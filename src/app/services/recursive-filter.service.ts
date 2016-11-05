@@ -22,7 +22,7 @@ export class RecursiveFilterService {
     }
     if (object.hasOwnProperty(key) && depthStart === depthEnd) {
       object = func(object);
-      if (object) {
+      if (object || object === 0) {
         target.push(object);
       }
     }

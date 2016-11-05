@@ -990,6 +990,7 @@ function generateDataScatter(groups, points) {
       });
     }
   }
+  console.log("scatter chart data", data);
   return data;
 }
 

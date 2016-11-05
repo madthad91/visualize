@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { GetJsonService } from './get-json.service';
 
-describe('Service: GetJson', () => {
+xdescribe('Service: GetJson', () => {
   let service; // store getJson.service object
 
   beforeEach(() => {

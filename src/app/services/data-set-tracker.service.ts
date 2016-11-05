@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ChartTypes, AllOptions, AllData } from '../components/demo-page/defs'
+import * as _ from "lodash";
 
 @Injectable()
 export class DataSetTrackerService {
@@ -68,6 +69,8 @@ export class DataSetTrackerService {
         return dataReMapper.makeDiscreteBarChart(args[0], args[1]);
       case "pieChart":
         return dataReMapper.makePieChart(args[0], args[1]);
+      case "lineChart":
+        return dataReMapper.makeLineChart(graphChoice, args[0], args[1]);
     }
   }
 
@@ -182,30 +185,113 @@ class DataTracker {
 
 class dataReMapper {
   public static makeDonut(labels: any[], values: any[]) {
+    console.log("makeDonut called with label", labels, "values", values);
     let res = [];
     labels.forEach(function (val, idx) {
       res.push({ key: labels[idx], y: values[idx] })
     });
-
+    console.log("transformed", res);
     return res;
   }
 
   public static makeDiscreteBarChart(labels: any[], values: any[]) {
-    var valueSet = [];
-    labels.forEach(function (val, idx) {
-      valueSet.push({ label: labels[idx], value: labels[idx] })
-    });
-    var res = [{ key: "Cumulative Return", values: valueSet }];
-
+    // let res = [
+    //     {
+    //       key: "Cumulative Return",
+    //       values: [
+    //         {
+    //           "label" : "A" ,
+    //           "value" : -29.765957771107
+    //         } ,
+    //         {
+    //           "label" : "B" ,
+    //           "value" : 0
+    //         } ,
+    //         {
+    //           "label" : "C" ,
+    //           "value" : 32.807804682612
+    //         } ,
+    //         {
+    //           "label" : "D" ,
+    //           "value" : 196.45946739256
+    //         } ,
+    //         {
+    //           "label" : "E" ,
+    //           "value" : 0.19434030906893
+    //         } ,
+    //         {
+    //           "label" : "F" ,
+    //           "value" : -98.079782601442
+    //         } ,
+    //         {
+    //           "label" : "G" ,
+    //           "value" : -13.925743130903
+    //         } ,
+    //         {
+    //           "label" : "H" ,
+    //           "value" : -5.1387322875705
+    //         }
+    //       ]
+    //     }
+    //   ];
+    let res = [
+      {
+        key: "Cumulative Return",
+        values: _.zipWith(labels, values, function(l, v) {
+          return {
+            "label": l,
+            "value": v
+          };
+        })
+      }
+    ];
     return res;
   }
 
   public static makePieChart(labels: any[], values: any[]) {
+    console.log("makePieChart called");
     let res = [];
     labels.forEach(function (val, idx) {
       res.push({ key: labels[idx], y: values[idx] })
     });
+    console.log("transformed", res);
+    return res;
+  }
 
+  public static makeLineChart(name: string, xs: any[], ys: any[]) {
+    //Line chart data should be sent as an array of series objects.
+    // return [
+    //   {
+    //     values: sin,      //values - represents the array of {x,y} data points
+    //     key: 'Sine Wave', //key  - the name of the series.
+    //     color: '#ff7f0e'  //color - optional: choose your own line color.
+    //   },
+    //   {
+    //     values: cos,
+    //     key: 'Cosine Wave',
+    //     color: '#2ca02c'
+    //   },
+    //   {
+    //     values: sin2,
+    //     key: 'Another sine wave',
+    //     color: '#7777ff',
+    //     area: true      //area - set to true if you want this line to turn into a filled area chart.
+    //   }
+    // ];
+    console.log("lineChart called", name, xs, ys);
+    let set1 = {
+      values: [],
+      key: name
+    }
+    let res = [
+      set1
+    ]
+
+    set1.values = _.zipWith(xs, ys, function (x, y) {
+      return { 'x': x, 'y': y };
+    });
+
+    console.log("transformed", res);
     return res;
   }
 
