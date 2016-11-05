@@ -62,6 +62,7 @@ export class DataSetTrackerService {
   }
 
   public static getDataFromGraphChoice(graphChoice: string, ...args) {
+    console.log("args passed in", args);
     switch (graphChoice) {
       case "donutChart":
         return dataReMapper.makeDonut(args[0], args[1]);
@@ -70,7 +71,7 @@ export class DataSetTrackerService {
       case "pieChart":
         return dataReMapper.makePieChart(args[0], args[1]);
       case "lineChart":
-        return dataReMapper.makeLineChart(graphChoice, args[1], args[2]);
+        return dataReMapper.makeLineChart(graphChoice, args[1], args[2], ...args);
     }
   }
 
@@ -258,7 +259,7 @@ class dataReMapper {
     return res;
   }
 
-  public static makeLineChart(name: string, xs: any[], ys: any[]) {
+  public static makeLineChart(name: string, xs: any[], ys: any[], ...args) {
     //Line chart data should be sent as an array of series objects.
     // return [
     //   {
@@ -278,7 +279,7 @@ class dataReMapper {
     //     area: true      //area - set to true if you want this line to turn into a filled area chart.
     //   }
     // ];
-    console.log("lineChart called", name, xs, ys);
+    console.log("lineChart called", name, xs, ys, args);
     let set1 = {
       values: [],
       key: name
