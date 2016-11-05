@@ -22,6 +22,10 @@ export class ParserService {
 
       return result;
     }
+    else
+    {
+      return null;
+    }
   }
 
   getKeys(obj: Object) {
@@ -52,7 +56,7 @@ export class ParserService {
     }
   }
 
-  getPossibleLegends(arr) {
+ getPossibleLegends(arr) {
     // return the properties of all the object contained in arr argument
     // assumes all objects in arr has same properties
     return Object.keys(arr[0]);

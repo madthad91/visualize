@@ -63,10 +63,10 @@ module.exports = function() {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(775);
+var content = __webpack_require__(776);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(839)(content, {});
+var update = __webpack_require__(840)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -84,7 +84,7 @@ if(false) {
 
 /***/ },
 
-/***/ 774:
+/***/ 775:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(429)();
@@ -99,22 +99,22 @@ exports.push([module.i, ".md-elevation-z0 {\n  box-shadow: 0px 0px 0px 0px rgba(
 
 /***/ },
 
-/***/ 775:
+/***/ 776:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(429)();
 // imports
-exports.i(__webpack_require__(774), "");
+exports.i(__webpack_require__(775), "");
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n\r\n.md-menu{max-height: 300px !important; overflow-y:auto !important}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\n.md-menu{max-height: 300px !important; overflow-y:auto !important}", ""]);
 
 // exports
 
 
 /***/ },
 
-/***/ 839:
+/***/ 840:
 /***/ function(module, exports) {
 
 /*
@@ -367,7 +367,7 @@ function updateLink(linkElement, obj) {
 
 /***/ },
 
-/***/ 843:
+/***/ 844:
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(449);
@@ -375,5 +375,5 @@ module.exports = __webpack_require__(449);
 
 /***/ }
 
-},[843]);
+},[844]);
 //# sourceMappingURL=styles.map

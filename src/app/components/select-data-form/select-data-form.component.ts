@@ -4,12 +4,13 @@ import { GetJsonService } from '../../services/get-json.service';
 import { ApiService } from '../../services/api.service';
 import { ChartTypes, AllOptions, AllData } from '../demo-page/defs'
 import { RecursiveFilterService } from '../../services/recursive-filter.service';
+import { DataSetTrackerService } from '../../services/data-set-tracker.service';
 
 @Component({
   selector: 'app-select-data-form',
   templateUrl: './select-data-form.component.html',
   styleUrls: ['./select-data-form.component.css'],
-  providers: [ParserService, GetJsonService, ApiService]
+  providers: [ParserService, GetJsonService, ApiService, DataSetTrackerService]
 })
 export class SelectDataFormComponent implements OnInit {
   options;
@@ -28,23 +29,26 @@ export class SelectDataFormComponent implements OnInit {
   selectedChild: any // stores the object user selected
   partialDataSet: any;
   level: number; // keeps track of how deep the nested selected data is
-  selections = {
-    collectionReady: false,
-    showGraph: false,
-    graphData: null,
-    dataCollection: null, // store the data collection they want to graph,
-    chartType: null, // store the type of chart they want display, default to BarChart for now
-    possibleLegends: [], //store the possible legends for data collection
-    legendProperty: null,
-    dataProperty: null,
-    chartLegendValues: null,
-    chartDataValues: null,
-  }; // stores the user selection (e.g what type of graph, data set, property)
+  originalDataSet;
+  selections: Selection[] = [];
+  showGraph = false;
+  //   collectionReady: false,
+  //   showGraph: false,
+  //   graphData: null,
+  //   dataCollection: null, // store the data collection they want to graph,
+  //   chartType: null, // store the type of chart they want display, default to BarChart for now
+  //   possibleLegends: [], //store the possible legends for data collection
+  //   legendProperty: null,
+  //   dataProperty: null,
+  //   chartLegendValues: null,
+  //   chartDataValues: null,
+  // }; // stores the user selection (e.g what type of graph, data set, property)
 
   constructor(
     private Parser: ParserService,
     private Jgetter: GetJsonService,
-    private ApiGetter: ApiService) {
+    private ApiGetter: ApiService,
+    private DataSetTracker: DataSetTrackerService) {
 
   }
 
@@ -60,18 +64,19 @@ export class SelectDataFormComponent implements OnInit {
 
   //this uses the api input
   resetSelections() {
-    this.selections = {
-      collectionReady: false,
-      showGraph: false,
-      graphData: null,
-      dataCollection: null, // store the data collection they want to graph,
-      chartType: null, // store the type of chart they want display, default to BarChart for now
-      possibleLegends: [], //store the possible legends for data collection
-      legendProperty: null,
-      dataProperty: null,
-      chartLegendValues: null,
-      chartDataValues: null,
-    };
+    this.selections = [];
+    // this.selections = {
+    //   collectionReady: false,
+    //   showGraph: false,
+    //   graphData: null,
+    //   dataCollection: null, // store the data collection they want to graph,
+    //   chartType: null, // store the type of chart they want display, default to BarChart for now
+    //   possibleLegends: [], //store the possible legends for data collection
+    //   legendProperty: null,
+    //   dataProperty: null,
+    //   chartLegendValues: null,
+    //   chartDataValues: null,
+    // };
   }
 
   getJSONData(api: string) {
@@ -81,22 +86,19 @@ export class SelectDataFormComponent implements OnInit {
 
     api = api.trim();
     if (!api) { return; }
+
+    DataSetTrackerService.setUrl(api);
     this.ApiGetter.getAPI(api)
       .then(jsonData => {
         this.data = jsonData;
         var isArray = Array.isArray(this.data);
 
-        //this.children = 
-        var temp = this.Parser.getProperties(this.data);
-        console.log("temp", temp)
-        if (isArray) {
-          this.children = temp.map(function (x) {
-            x["isArray"] = true;
-            return x;
-          })
+        let propSet = this.Parser.getProperties(this.data);
+        if (propSet) {
+          this.children = propSet;
         }
         else {
-          this.children = temp;
+          alert('tada')
         }
         console.log("json data", this.data)
         console.log("children in api getter", this.children);
@@ -106,10 +108,32 @@ export class SelectDataFormComponent implements OnInit {
 
 
   updateSelectedChart(c) {
-    this.selections.dataCollection = this.data;
-    let dataCollection = this.selections.dataCollection;
-    this.selections.chartType = c;
-    this.selections.possibleLegends = this.Parser.getPossibleLegends(this.selections.dataCollection);
+    // this.selections.dataCollection = this.data;
+    this.originalDataSet = this.data;
+
+    //let dataCollection = this.selections.dataCollection;
+    var temp = new Selection();
+    temp.dataCollection = this.data;
+    temp.chartType = c;
+    DataSetTrackerService.setChartType(c);
+    let temp2 = DataSetTrackerService.formTracker.makeFormSet(temp.chartType, 0);
+    temp.selectYour = temp2.selectYour;
+    if (Array.isArray(temp.dataCollection) && temp.dataCollection.length > 0) {
+      temp.decisionPath = "0";
+      temp.dataCollection = temp.dataCollection[0];
+    }
+    let propSet = this.Parser.getProperties(temp.dataCollection);
+    if (propSet) {
+      temp.dropdownOptions = propSet;
+    }
+    else {
+      alert("no properties left. handle this");
+    }
+
+    //temp.possibleLegends = this.Parser.getPossibleLegends(this.data);
+    this.selections.push(temp);
+    // this.selections.chartType = c;
+    // this.selections.possibleLegends = 
     console.log(this.selections);
   }
 
@@ -131,45 +155,120 @@ export class SelectDataFormComponent implements OnInit {
   //   this.selections.chartDataValues = RecursiveFilterService.converter(this.data, desiredKey, 1, mapper);
   // }
 
-  saveValuesForLegend(legend) {
-    let desiredKey = legend;
-    this.selections.legendProperty = legend;
+  saveValuesForLegend(legend, idx) {
+
+    //going back to the old days
+    this.selections[idx].decisionPath = this.addPath(this.selections[idx].decisionPath, legend);
+    let temp_child = this.Parser.getValueFromPath(this.selections[idx].decisionPath, this.originalDataSet);
+    console.log('the temp child is', temp_child);
+    let propSet = this.Parser.getProperties(temp_child);
+    if (propSet) {
+      this.selections[idx].dropdownOptions = propSet;
+    }
+    else {
+      var temp_depth = 0;
+      if (this.selections[idx].decisionPath[0] == "0") {
+        temp_depth = temp_depth + 1;
+      }
+      this.selections[idx].decisionPath = this.selections[idx].decisionPath.replace(/0./g, '');
+      console.log('new decisionPath is ', this.selections[idx].decisionPath);
+      temp_depth = temp_depth + (this.selections[idx].decisionPath.split('.').length - 1)
+      this.selections[idx].graphData = RecursiveFilterService.converter(this.originalDataSet,
+        legend["name"],
+        temp_depth,
+        function (x) { return x[legend["name"]]; });
+
+      DataSetTrackerService.setNewDataSet(this.selections[idx].selectYour, this.selections[idx].graphData);
+      if (DataSetTrackerService.isDone(this.selections[idx].chartType, idx)) {
+        console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
+        alert("You're done");
+        //ng-if for showing the graph template code.
+        this.showGraph = true;
+        this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
+        let arrs = DataSetTrackerService.getAllDataSets();
+        this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1]);
+      }
+      else {
+        let temp = new Selection();
+        let temp2 = DataSetTrackerService.formTracker.makeFormSet(this.selections[idx].chartType, idx + 1);
+
+        temp.selectYour = temp2.selectYour;
+        temp.dataCollection = this.originalDataSet;
+        temp.chartType = this.selections[idx].chartType;
+
+        //if the beginning of the dataset is an array, assume arrays are uniform
+        //and take the first index so the user doesn't have to pick an index
+        if (Array.isArray(temp.dataCollection) && temp.dataCollection.length > 0) {
+          temp.decisionPath = "0";
+          temp.dataCollection = temp.dataCollection[0];
+        }
+
+        //get first object's keys to present to the user
+        let propSet = this.Parser.getProperties(temp.dataCollection);
+        if (propSet) {
+          temp.dropdownOptions = propSet;
+        }
+        else {
+          alert("no properties left. handle this");
+        }
+        this.selections.push(temp);
+      }
+
+    }
+    //end going back
+    //console.log('inside savevaluesforlegend',legend, idx )
+    // let desiredKey = legend;
+    // this.selections.legendProperty = legend;
+    // var temp = cleanDecisionPath.split('.')
+    //var desiredKey = temp[temp.length-1]
+    //   // var partialDataSet = RecursiveFilterService.converter(this.data, desiredKey, temp.length-1,function(x){return x[desiredKey];})
+    //the new broken stuff
+    // this.selections[idx].graphData = RecursiveFilterService.converter(this.data, legend, 1, function(x){return x[legend]; });
+    // DataSetTrackerService.setNewDataSet("labels", this.selections[idx].graphData);
+
+    // var temp = new Selection();
+    // temp.dataCollection = this.data;
+    // temp.dropdownOptions = this.Parser.getProperties(temp.dataCollection);
+    //end new stuff
   }
 
-  saveValuesForDataPoints(propertyOfDataPoint) {
-    function helper(obj) {
-      return { "key": obj[desiredKey], "y": obj['value'] };
+  // saveValuesForDataPoints(propertyOfDataPoint) {
+  //   let thad = this;
+  //   function helper(obj) {
+  //     return { "key": obj[desiredKey], "y": obj[thad.selections.legendProperty] };
+  //   }
+
+  //   let desiredKey = this.selections.legendProperty;
+
+  //   this.selections.dataProperty = propertyOfDataPoint;
+  //   this.selections.chartDataValues = RecursiveFilterService.converter(this.data, desiredKey, 1, helper);
+  //   console.log(this.selections);
+  // }
+
+
+
+
+
+
+
+  public addPath(decisionPath: string, selectedOption): string {
+    console.log('the arguments of addPath are', arguments)
+    if (decisionPath) {
+      //this skips the selection of an object in a list
+      if (selectedOption.type === 'list') {
+        return decisionPath + "." + selectedOption.name + ".0";
+      }
+      else {
+        return decisionPath + "." + selectedOption.name;
+
+      }
+
+      //this.cleanDecisionPath = this.cleanDecisionPath + "." + selectedOption.name;
+    } else {
+      return selectedOption.name;
     }
 
-    let desiredKey = this.selections.legendProperty;
-
-    this.selections.dataProperty = propertyOfDataPoint;
-    this.selections.chartDataValues = RecursiveFilterService.converter(this.data, desiredKey, 1, helper);
-    console.log(this.selections);
   }
-
-
-
-
-
-
-
-  // addPath(child, i) {
-  //   if (this.decisionPath) {
-  //     //this skips the selection of an object in a list
-  //     if (child.type === 'list') {
-  //       this.decisionPath = this.decisionPath + "." + child.name + ".0";
-  //     }
-  //     else {
-  //       this.decisionPath = this.decisionPath + "." + child.name;
-
-  //     }
-
-  //     this.cleanDecisionPath = this.cleanDecisionPath + "." + child.name;
-  //   } else {
-  //     this.decisionPath = child.name;
-  //   }
-  // }
 
   // addNewFormPiece($event, child, i) {
   //   console.log("add new form piece was called- event, child, i", $event, child, i);
@@ -231,4 +330,20 @@ export class SelectDataFormComponent implements OnInit {
 
   }
 
+}
+
+class Selection {
+  collectionReady: boolean = false;
+  showGraph: boolean = false;
+  graphData = null;
+  dataCollection = null; // store the data collection they want to graph,
+  chartType = null; // store the type of chart they want display, default to BarChart for now
+  possibleLegends = []; //store the possible legends for data collection
+  legendProperty = null;
+  dataProperty = null;
+  chartLegendValues = null;
+  chartDataValues = null;
+  dropdownOptions = null;
+  decisionPath = "";
+  selectYour = "";
 }

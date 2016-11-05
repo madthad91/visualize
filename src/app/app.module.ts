@@ -26,6 +26,7 @@ import {
   AuthMethods, 
   AuthProviders 
 } from "angularfire2";
+//import { SelectDataFormUrlentryComponent } from './components/select-data-form-urlentry/select-data-form-urlentry.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdlyXLG8B75rDYQf-N_CtM_cBR8cLHqAQ",
