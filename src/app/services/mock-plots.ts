@@ -9,6 +9,6 @@ import { Plot } from './plot';
 // }
 
 export const PLOTS: Plot[] = [
-	{id: 1, title: "My First Plot", description: "A plot about derp", img_url: " "},
+	{id: 1, title: "My First Plot", description: "A plot about derp", img_url: "https://material.angularjs.org/latest/img/washedout.png"},
 	{id: 2, title: "Puppy Plot", description: "This plot is potentially about puppies", img_url: "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"}
 ];

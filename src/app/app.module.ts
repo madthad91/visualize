@@ -64,7 +64,7 @@ const firebaseConfig = {
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'plot', component: PlotComponent },
-      { path: 'view', component: ViewComponent },
+      { path: 'view/:key', component: ViewComponent },
       { path: 'demo', component: DemoPageComponent}
     ]),
     ReactiveFormsModule

@@ -1,71 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
+import { Router }            from '@angular/router';
+import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-firebase',
   templateUrl: './firebase.component.html',
-  styleUrls: ['./firebase.component.css']
+  styleUrls: ['./firebase.component.css'],
+  providers: [FirebaseService]
 })
 export class FirebaseComponent implements OnInit {
-	user = {};
-	list = {};
-	username: string;
-	items: FirebaseListObservable<any>;
+	items: FirebaseListObservable<any> = this.firebaseService.items;
+	
+  constructor(private router: Router,
+  	private firebaseService: FirebaseService) {}
 
-  constructor(public af: AngularFire) {
-  	this.items = af.database.list('/data');
-
-  	this.items.subscribe(snapshot => {
-	  console.log(snapshot.key)
-	  console.log(snapshot.val())
-	});
-
-	this.list = af.database.list('/data', {
-      query: {
-        orderByChild: 'user'
-      }
-    });
+  gotoDetail(key: string): void {
+    let link = ['/view', key];
+    this.router.navigate(link);
   }
 
-	login() {
-	  this.af.auth.login({
-	    provider: AuthProviders.Anonymous
-	  });
-	}
-	 
-	logout() {
-	  this.af.auth.logout();
-	}
+  save(user, chartType, chartDataValues, api, graphURL) {
+  	this.firebaseService.save(user, chartType, chartDataValues, api, graphURL);
+  }
 
-	save(user, chartType, chartDataValues, api, graphURL) {
-	    this.items.push({
-	    	user: user, 
-	    	chartType: chartType, 
-	    	chartDataValues: chartDataValues, 
-	    	api: api,
-	    	graphURL: graphURL
-	    });
-	}
-
-	//deletes everything
-	deleteAll() {
-		this.items.remove();
-	}
-
-	//deletes an item
-	deleteItem(key: string) {    
-		this.items.remove(key); 
-	}
-
-	listAll() {
-		this.items
-		  .subscribe(snapshots => {
-		    snapshots.forEach(snapshot => {
-		      console.log(snapshot.key)
-		      console.log(snapshot.val())
-		    });
-		  })
-	}
+  deleteItem(key: string) {
+  	this.firebaseService.deleteItem(key);
+  }
 
 	ngOnInit() {
 		
