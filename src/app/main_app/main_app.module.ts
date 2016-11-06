@@ -46,14 +46,14 @@ import { IsArrayPipe } from './pipes/is-array.pipe';
     DemoPageComponent,
     SelectDataFormComponent,
     ChartSelector,
-    nvD3,
     IsArrayPipe,
     AnameComponent,
     SampleFormComponent,
+    nvD3,
     PropertyTypeConvertPipe],
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule,  
     HttpModule,
     MaterialModule.forRoot(),
      ReactiveFormsModule,
@@ -63,8 +63,8 @@ import { IsArrayPipe } from './pipes/is-array.pipe';
         component: HomeComponent
         ,
         children: [
-          //{path: '', component: HomeComponent},
-          { path: '', component: PlotComponent },
+          {path: '', component: PlotComponent},
+          { path: 'plot', component: PlotComponent },
           { path: 'view/:key', component: ViewComponent },
           { path: 'records/:hash', component: RecordsComponent },
           { path: 'demo', component: DemoPageComponent }
@@ -77,7 +77,8 @@ import { IsArrayPipe } from './pipes/is-array.pipe';
   exports: [
     RouterModule
   ],
-  providers: [ApiService],
-    bootstrap: [HomeComponent]
+  providers: [ApiService]
+  //,
+    //bootstrap: [HomeComponent]
 })
 export class MainAppModule { }

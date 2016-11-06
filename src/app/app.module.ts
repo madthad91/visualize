@@ -10,6 +10,7 @@ import { MaterialModule } from '@angular/material';
 import { AppRoutingModule }  from './app-routing.module';
 
 import { MainAppModule } from './main_app/main_app.module';
+import { StandAloneModule } from './standalone/standalone.module';
 import { FirebaseComponent } from './main_app/components/firebase/firebase.component';
 import {
   AngularFireModule,
@@ -33,7 +34,6 @@ const firebaseConfig = {
   declarations: [
     AppComponent,
     FirebaseComponent
-
   ],
   imports: [
     BrowserModule,
@@ -42,6 +42,7 @@ const firebaseConfig = {
     MaterialModule.forRoot(),
     ReactiveFormsModule,
     MainAppModule,
+    StandAloneModule,
     AppRoutingModule,
      AngularFireModule.initializeApp(firebaseConfig, {
       provider: AuthProviders.Anonymous, //AuthProviders.Google,
