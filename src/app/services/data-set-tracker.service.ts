@@ -68,11 +68,11 @@ export class DataSetTrackerService {
   public static getDataFromGraphChoice( ...args) {
     switch (args[0]) {
       case "donutChart":
-        return dataReMapper.makeDonut(args[1], args[2]);
+        return dataReMapper.makeDonut(args[1][0], args[1][1]);
       case "discreteBarChart":
-        return dataReMapper.makeDiscreteBarChart(args[1], args[2]);
+        return dataReMapper.makeDiscreteBarChart(args[1][0], args[1][1]);
       case "pieChart":
-        return dataReMapper.makePieChart(args[1], args[2]);
+        return dataReMapper.makePieChart(args[1][0], args[1][1]);
       case "lineChart":
         return dataReMapper.makeLineChart(args[1]);
       case "multiBarHorizontalChart":

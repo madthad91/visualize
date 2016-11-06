@@ -178,7 +178,7 @@ export class SelectDataFormComponent implements OnInit {
       this.showGraph = true;
       this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
       let arrs = DataSetTrackerService.getAllDataSets();
-      this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1]);
+      this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs);
     }
     else {
           if(decision["type"] == "complex" && decision["decision"]){
