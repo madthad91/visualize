@@ -19,7 +19,8 @@ export class SelectDataFormComponent implements OnInit {
     'donutChart',
     'discreteBarChart',
     'pieChart',
-    'lineChart'
+    'lineChart',
+    'multiBarHorizontalChart'
   ];
   title = 'Select your data collection';
 
@@ -66,18 +67,7 @@ export class SelectDataFormComponent implements OnInit {
   //this uses the api input
   resetSelections() {
     this.selections = [];
-    // this.selections = {
-    //   collectionReady: false,
-    //   showGraph: false,
-    //   graphData: null,
-    //   dataCollection: null, // store the data collection they want to graph,
-    //   chartType: null, // store the type of chart they want display, default to BarChart for now
-    //   possibleLegends: [], //store the possible legends for data collection
-    //   legendProperty: null,
-    //   dataProperty: null,
-    //   chartLegendValues: null,
-    //   chartDataValues: null,
-    // };
+    DataSetTrackerService.resetDataSetTrackerService();
   }
 
   getJSONData(api: string) {
@@ -88,22 +78,43 @@ export class SelectDataFormComponent implements OnInit {
     api = api.trim();
     if (!api) { return; }
 
-    DataSetTrackerService.setUrl(api);
-    this.ApiGetter.getAPI(api)
-      .then(jsonData => {
-        this.data = jsonData;
-        var isArray = Array.isArray(this.data);
+    if (api.indexOf("localhost") > -1) {
+      DataSetTrackerService.setUrl(api);
+      this.ApiGetter.getLocalAPI(api)
+        .then(jsonData => {
+          this.data = jsonData;
+          var isArray = Array.isArray(this.data);
 
-        let propSet = this.Parser.getProperties(this.data);
-        if (propSet) {
-          this.children = propSet;
-        }
-        else {
-          alert('tada')
-        }
-        console.log("json data", this.data)
-        console.log("children in api getter", this.children);
-      });
+          let propSet = this.Parser.getProperties(this.data);
+          if (propSet) {
+            this.children = propSet;
+          }
+          else {
+            alert('tada')
+          }
+          console.log("json data", this.data)
+          console.log("children in api getter", this.children);
+        });
+    }
+    else {
+      DataSetTrackerService.setUrl(api);
+      this.ApiGetter.getAPI(api)
+        .then(jsonData => {
+          this.data = jsonData;
+          var isArray = Array.isArray(this.data);
+
+          let propSet = this.Parser.getProperties(this.data);
+          if (propSet) {
+            this.children = propSet;
+          }
+          else {
+            alert('tada')
+          }
+          console.log("json data", this.data)
+          console.log("children in api getter", this.children);
+        });
+    }
+
   }
 
 
@@ -157,7 +168,7 @@ export class SelectDataFormComponent implements OnInit {
   //   this.selections.chartDataValues = RecursiveFilterService.converter(this.data, desiredKey, 1, mapper);
   // }
 
-  saveValuesForLegend(legend, idx:number, selectionType) {
+  saveValuesForLegend(legend, idx: number, selectionType) {
     if (selectionType == "dropdown") {
       //going back to the old days
       this.selections[idx].decisionPath = this.addPath(this.selections[idx].decisionPath, legend);
@@ -190,7 +201,7 @@ export class SelectDataFormComponent implements OnInit {
     }
     else if (selectionType == "text") {
       DataSetTrackerService.setNewDataSet(this.selections[idx].selectYour, legend.value);
-        this.decideIfDone(idx);
+      this.decideIfDone(idx);
     }
     console.log('datasettracker', DataSetTrackerService.dataTracker);
     //end going back
@@ -224,9 +235,24 @@ export class SelectDataFormComponent implements OnInit {
   // }
 
 
-public decideIfDone(idx:number){
-  let decision = DataSetTrackerService.isDone(this.selections[idx].chartType, idx)
-  if (decision["type"] =="single" && decision["decision"] ==true) {
+  public decideIfDone(idx: number) {
+    let decision = DataSetTrackerService.isDone(this.selections[idx].chartType, idx)
+    if (decision["type"] == "single" && decision["decision"] == true) {
+      console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
+      alert("You're done");
+
+      //this.showGraph - ng-if for showing the graph template code.
+      this.showGraph = true;
+      this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
+      let arrs = DataSetTrackerService.getAllDataSets();
+      this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1]);
+    }
+    else {
+      if (decision["type"] == "complex" && decision["decision"]) {
+        //ask if thye wanna keep going 
+        //if they say yes, then run below code
+        //if they say no, then make graph using code above
+        if (window.confirm('Are you done picking datasets?')) {
           console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
           alert("You're done");
 
@@ -234,60 +260,45 @@ public decideIfDone(idx:number){
           this.showGraph = true;
           this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
           let arrs = DataSetTrackerService.getAllDataSets();
-          this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1]);
+          this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1], arrs[2]);
+
         }
         else {
-          if(decision["type"] == "complex" && decision["decision"]){
-            //ask if thye wanna keep going 
-            //if they say yes, then run below code
-            //if they say no, then make graph using code above
-            if(window.confirm('Are you done picking datasets?')){
-              console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
-              alert("You're done");
-
-              //this.showGraph - ng-if for showing the graph template code.
-              this.showGraph = true;
-              this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
-              let arrs = DataSetTrackerService.getAllDataSets();
-              this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1], arrs[2]);
-              
-            }
-            else{
-              this.makeNewSelection(idx);
-            }
-          }
-          else{
-            this.makeNewSelection(idx);
-          }
-          
+          this.makeNewSelection(idx);
         }
-}
+      }
+      else {
+        this.makeNewSelection(idx);
+      }
 
-  public makeNewSelection(idx:number){
+    }
+  }
+
+  public makeNewSelection(idx: number) {
     let temp = new Selection();
-          let temp2 = DataSetTrackerService.formTracker.makeFormSet(this.selections[idx].chartType, idx + 1);
+    let temp2 = DataSetTrackerService.formTracker.makeFormSet(this.selections[idx].chartType, idx + 1);
 
-          temp.selectYour = temp2.selectYour;
-          temp.inputType = temp2.inputType;
-          temp.dataCollection = this.originalDataSet;
-          temp.chartType = this.selections[idx].chartType;
+    temp.selectYour = temp2.selectYour;
+    temp.inputType = temp2.inputType;
+    temp.dataCollection = this.originalDataSet;
+    temp.chartType = this.selections[idx].chartType;
 
-          //if the beginning of the dataset is an array, assume arrays are uniform
-          //and take the first index so the user doesn't have to pick an index
-          if (Array.isArray(temp.dataCollection) && temp.dataCollection.length > 0) {
-            temp.decisionPath = "0";
-            temp.dataCollection = temp.dataCollection[0];
-          }
+    //if the beginning of the dataset is an array, assume arrays are uniform
+    //and take the first index so the user doesn't have to pick an index
+    if (Array.isArray(temp.dataCollection) && temp.dataCollection.length > 0) {
+      temp.decisionPath = "0";
+      temp.dataCollection = temp.dataCollection[0];
+    }
 
-          //get first object's keys to present to the user
-          let propSet = this.Parser.getProperties(temp.dataCollection);
-          if (propSet) {
-            temp.dropdownOptions = propSet;
-          }
-          else {
-            alert("no properties left. handle this");
-          }
-          this.selections.push(temp);
+    //get first object's keys to present to the user
+    let propSet = this.Parser.getProperties(temp.dataCollection);
+    if (propSet) {
+      temp.dropdownOptions = propSet;
+    }
+    else {
+      alert("no properties left. handle this");
+    }
+    this.selections.push(temp);
   }
 
 

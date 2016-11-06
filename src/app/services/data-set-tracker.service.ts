@@ -6,11 +6,15 @@ import * as _ from "lodash";
 @Injectable()
 export class DataSetTrackerService {
   public static dataTracker: DataTracker;
-  public static formTracker: FormTracker; //no difference between it being here
-  //or in the constructor
+  public static formTracker: FormTracker;
 
   constructor() {
-    DataSetTrackerService.dataTracker = new DataTracker();//dataTracker;
+    DataSetTrackerService.dataTracker = new DataTracker();
+    DataSetTrackerService.formTracker = new FormTracker();
+  }
+
+  public static resetDataSetTrackerService(){
+    DataSetTrackerService.dataTracker = new DataTracker();
     DataSetTrackerService.formTracker = new FormTracker();
   }
 
@@ -146,18 +150,46 @@ class FormTracker {
           }
         }
 
-      default:
+      case "lineChart":
       if(idx % 3 ==0){
         let title = this.stringifyNumber(Math.floor(idx / 3 ) +1);
         return{
-          selectYour: title + " set of labels",
+          selectYour: title + " label",
           chartType: chartType,
           inputType: "text"
         }
       }
       else{
-        let picky = idx % 3;
-        let title = this.stringifyNumber(idx);
+
+        let picky = idx %3;
+        let title = this.stringifyNumber(picky);
+        return {
+          selectYour: title + " set of values",
+          chartType: chartType,
+          inputType: "dropdown"
+        };
+      }
+      case "multiBarHorizontalChart":
+      if(idx % 3 ==0){
+        let title = this.stringifyNumber(Math.floor(idx / 3 ) +1);
+        return{
+          selectYour: title + " label",
+          chartType: chartType,
+          inputType: "text"
+        }
+      }
+      else if(idx % 3 ==1){
+        let picky = Math.floor(idx / 3);
+        let title = this.stringifyNumber(picky+1);
+        return {
+          selectYour: title + " inner set of labels",
+          chartType: chartType,
+          inputType: "dropdown"
+        };
+      }
+      else{
+        let picky = Math.floor(idx / 3);
+        let title = this.stringifyNumber(picky+1);
         return {
           selectYour: title + " set of values",
           chartType: chartType,
