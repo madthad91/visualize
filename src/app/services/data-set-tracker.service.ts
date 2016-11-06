@@ -20,8 +20,8 @@ export class DataSetTrackerService {
     DataSetTrackerService.setUrl(url);
   }
 
-  public static getNewDataSet(chartType: string, idx: number): any {
-    return DataSetTrackerService.formTracker.makeFormSet(chartType, idx);
+  public static getNewDataSet(chartType: string, idx: number, label_name): any {
+    return DataSetTrackerService.formTracker.makeFormSet(chartType, idx, label_name);
   }
 
   public static isDone(chartType: string, idx: number): any {
@@ -133,7 +133,7 @@ class FormTracker {
 
   }
 
-  public makeFormSet(chartType: string, idx: number) {
+  public makeFormSet(chartType: string, idx: number, label_name) {
 
     switch (chartType) {
       case "discreteBarChart":
@@ -143,60 +143,79 @@ class FormTracker {
           return {
             selectYour: "labels",
             chartType: chartType,
-            inputType: "dropdown"
+            inputType: "dropdown",
+            extraMsg: 'your graph'
           }
         }
         else {
           return {
             selectYour: "values",
             chartType: chartType,
-            inputType: "dropdown"
+            inputType: "dropdown",
+            extraMsg: 'your graph'
           }
         }
       case "lineChart":
         if (idx % 3 == 0) {
           let title = this.stringifyNumber(Math.floor(idx / 3) + 1);
           return {
-            selectYour: title + " label",
+            selectYour: 'a name ',//title + " label",
             chartType: chartType,
-            inputType: "text"
+            inputType: "text",
+            extraMsg: 'your '+ title + ' line'
           }
         }
         else {
 
           let picky = idx % 3;
           let title = this.stringifyNumber(picky);
+          let main_msg = "";
+          if(picky == 1)
+          {
+            main_msg = "a set of x-coordinates"
+          }
+          else{
+            main_msg = 'a set of y-coordinates'
+          }
           return {
-            selectYour: title + " set of values",
+            selectYour: main_msg,
             chartType: chartType,
-            inputType: "dropdown"
+            inputType: "dropdown",
+            extraMsg: label_name
           };
         }
       case "multiBarHorizontalChart":
         if (idx % 3 == 0) {
           let title = this.stringifyNumber(Math.floor(idx / 3) + 1);
           return {
-            selectYour: title + " label",
+            selectYour: 'a name ',//title + " label",
             chartType: chartType,
-            inputType: "text"
+            inputType: "text",
+            extraMsg: 'your '+ title + ' graph'
           }
         }
         else if (idx % 3 == 1) {
           let picky = Math.floor(idx / 3);
           let title = this.stringifyNumber(picky + 1);
           return {
-            selectYour: title + " inner set of labels",
+            selectYour: 'your labels',
             chartType: chartType,
-            inputType: "dropdown"
+            inputType: "dropdown",
+            extraMsg: label_name
+            // selectYour: title + " inner set of labels",
+            // chartType: chartType,
+            // inputType: "dropdown",
+            // extraMsg: ''
           };
         }
         else {
           let picky = Math.floor(idx / 3);
           let title = this.stringifyNumber(picky + 1);
           return {
-            selectYour: title + " set of values",
+            selectYour: 'your values',
             chartType: chartType,
-            inputType: "dropdown"
+            inputType: "dropdown",
+            extraMsg: label_name
           };
         }
 

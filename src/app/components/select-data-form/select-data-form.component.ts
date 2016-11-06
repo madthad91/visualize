@@ -107,9 +107,10 @@ export class SelectDataFormComponent implements OnInit {
     temp.dataCollection = this.data;
     temp.chartType = c;
     DataSetTrackerService.setChartType(c);
-    let temp2 = DataSetTrackerService.formTracker.makeFormSet(temp.chartType, 0);
+    let temp2 = DataSetTrackerService.formTracker.makeFormSet(temp.chartType, 0, '');
     temp.selectYour = temp2.selectYour;
     temp.inputType = temp2.inputType;
+    temp.extraMsg = temp2.extraMsg;
     if (Array.isArray(temp.dataCollection) && temp.dataCollection.length > 0) {
       temp.decisionPath = "0";
       temp.dataCollection = temp.dataCollection[0];
@@ -153,7 +154,7 @@ export class SelectDataFormComponent implements OnInit {
           temp_depth,
           function (x) { return x[legend["name"]]; });
 
-        DataSetTrackerService.setNewDataSet(this.selections[idx].selectYour, this.selections[idx].graphData);
+        DataSetTrackerService.setNewDataSet(idx.toString(), this.selections[idx].graphData);
         this.decideIfDone(idx);
       }
 
@@ -161,7 +162,7 @@ export class SelectDataFormComponent implements OnInit {
 
     }
     else if (selectionType == "text") {
-      DataSetTrackerService.setNewDataSet(this.selections[idx].selectYour, legend.value);
+      DataSetTrackerService.setNewDataSet(idx.toString(), legend.value);
       this.decideIfDone(idx);
     }
     console.log('datasettracker', DataSetTrackerService.dataTracker);
@@ -209,8 +210,11 @@ export class SelectDataFormComponent implements OnInit {
 
   public makeNewSelection(idx: number) {
     let temp = new Selection();
-    let temp2 = DataSetTrackerService.formTracker.makeFormSet(this.selections[idx].chartType, idx + 1);
-
+    var tempy_idx = Math.floor(idx/3);
+    var tempy_dataset = DataSetTrackerService.getDataSetByKey((tempy_idx * 3).toString());
+    console.log('the tempies are: ', tempy_idx, tempy_dataset);
+    let temp2 = DataSetTrackerService.formTracker.makeFormSet(this.selections[idx].chartType, idx + 1, tempy_dataset);
+    temp.extraMsg = temp2.extraMsg;
     temp.selectYour = temp2.selectYour;
     temp.inputType = temp2.inputType;
     temp.dataCollection = this.originalDataSet;
@@ -276,4 +280,5 @@ class Selection {
   decisionPath = "";
   selectYour = "";
   inputType = "";
+  extraMsg = "";
 }

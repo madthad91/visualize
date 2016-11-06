@@ -32,7 +32,7 @@
 	<!--*ngIf="selection.chartType" -->
 	<md-card *ngFor="let selection of selections; let i=index">
 		<span>{{selection.decisionPath | json}}</span>
-		<md-card-title>Select your {{selection.selectYour}} for {{ selection.chartType }}</md-card-title>
+		<md-card-title>Select {{selection.selectYour}} for {{ selection.extraMsg }}</md-card-title>
 		<div *ngIf="selection.inputType == 'dropdown'">
 			<button md-icon-button [md-menu-trigger-for]="menu">
                 <md-icon>more_vert</md-icon>
