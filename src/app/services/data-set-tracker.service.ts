@@ -14,8 +14,10 @@ export class DataSetTrackerService {
   }
 
   public static resetDataSetTrackerService() {
+    let url = DataSetTrackerService.getUrl();
     DataSetTrackerService.dataTracker = new DataTracker();
     DataSetTrackerService.formTracker = new FormTracker();
+    DataSetTrackerService.setUrl(url);
   }
 
   public static getNewDataSet(chartType: string, idx: number): any {
