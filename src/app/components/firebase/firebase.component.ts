@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { 
+  Component,
+  OnInit,
+  animate,
+  AnimationTransitionEvent,
+  state,
+  style,
+  trigger,
+  transition
+ } from '@angular/core';
 import { Router }            from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2';
 import { FirebaseService } from '../../services/firebase.service';
@@ -7,8 +16,18 @@ import { FirebaseService } from '../../services/firebase.service';
   selector: 'app-firebase',
   templateUrl: './firebase.component.html',
   styleUrls: ['./firebase.component.css'],
-  providers: [FirebaseService]
+  providers: [FirebaseService],
+  animations: [
+		trigger('enterAnimation', [
+			state('in', style({ transform: 'scale(1,1)' })),
+			transition('void => *', [
+				style({ transform: 'scale(0,0)' }),
+				animate(300)
+			])
+		]),
+	]
 })
+
 export class FirebaseComponent implements OnInit {
 	items: FirebaseListObservable<any> = this.firebaseService.items;
 	
