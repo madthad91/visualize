@@ -1,0 +1,53 @@
+<!-- <md-list>
+   <md-list-item *ngFor="let item of items | async">
+   		<button md-raised-button color="primary" class="margin-10" (click)="gotoDetail(item.$key)">View</button>
+   		<button md-raised-button color="primary" class="margin-10" (click)="deleteItem(item.$key)">Delete</button>
+   		<h3> Graph URL: {{item.graphURL}} </h3>   		
+   </md-list-item>
+</md-list>
+ -->
+<!-- <md-input #user placeholder="user" class="width-50"></md-input>
+<md-input #charttype placeholder="chart type" class="width-50"></md-input>
+<md-input #chartdatavalues placeholder="chart data values" class="width-50"></md-input>
+<md-input #api placeholder="api" class="width-50"></md-input>
+<md-input #graphurl placeholder="graphurl" class="width-50"></md-input>
+<button md-raised-button color="primary" (click)="save(user.value, charttype.value, chartdatavalues.value, api.value, graphurl.value)">
+  Save
+</button> -->
+
+<!-- For TESTING only: List all the data  -->
+
+<!-- <ul>
+	<li *ngFor="let item of items | async"><span>{{item.graphURL}}</span></li>
+</ul> -->
+
+
+
+<!-- Make a list of the cards -->
+<div style="display: flex; padding-top: 20px;" layout="row" layout-align="center center">
+
+    <div style="flex-grow: 1; background-color: linen;"></div>
+
+    <div style="text-align: center;">
+
+        <md-card *ngFor="let item of items | async" class="demo-card-blue md-card-flat" style="display: inline-block; margin:auto;" @enterAnimation>
+            <md-card-header>
+                <!-- <md-card-title>{{item.name}}</md-card-title> -->
+                <!-- Commented out, awaiting name attribute in firebase -->
+                <md-card-subtitle>{{item.graphURL}}</md-card-subtitle>
+            </md-card-header>
+
+            <img md-card-image src="https://material.angularjs.org/latest/img/washedout.png">
+
+            <md-card-actions>
+                <button md-raised-button color="primary" class="margin-10" (click)="gotoDetail(item.$key)">View</button>
+                <button md-raised-button color="warn" class="margin-10" (click)="deleteItem(item.$key)">Delete</button>
+            </md-card-actions>
+        </md-card>
+
+    </div>
+
+    <div style="flex-grow:1; background-color: linen;"></div>
+
+
+</div>
