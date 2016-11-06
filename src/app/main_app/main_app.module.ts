@@ -60,9 +60,11 @@ import { IsArrayPipe } from './pipes/is-array.pipe';
     RouterModule.forChild([
       {
         path: '',
-        component: HomeComponent,
+        component: HomeComponent
+        ,
         children: [
-          { path: 'plot', component: PlotComponent },
+          //{path: '', component: HomeComponent},
+          { path: '', component: PlotComponent },
           { path: 'view/:key', component: ViewComponent },
           { path: 'records/:hash', component: RecordsComponent },
           { path: 'demo', component: DemoPageComponent }
@@ -75,6 +77,7 @@ import { IsArrayPipe } from './pipes/is-array.pipe';
   exports: [
     RouterModule
   ],
-  providers: [ApiService]
+  providers: [ApiService],
+    bootstrap: [HomeComponent]
 })
 export class MainAppModule { }

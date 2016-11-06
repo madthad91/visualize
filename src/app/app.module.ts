@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {  APP_BASE_HREF } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MaterialModule } from '@angular/material';
+import { AppRoutingModule }  from './app-routing.module';
 
 import { MainAppModule } from './main_app/main_app.module';
 import { FirebaseComponent } from './main_app/components/firebase/firebase.component';
@@ -40,6 +42,7 @@ const firebaseConfig = {
     MaterialModule.forRoot(),
     ReactiveFormsModule,
     MainAppModule,
+    AppRoutingModule,
      AngularFireModule.initializeApp(firebaseConfig, {
       provider: AuthProviders.Anonymous, //AuthProviders.Google,
       method: AuthMethods.Anonymous //AuthMethods.Popup
@@ -48,5 +51,6 @@ const firebaseConfig = {
   bootstrap: [AppComponent],
   exports:[MaterialModule, 
     FirebaseComponent]
+    // ,providers:[{provide: APP_BASE_HREF, useValue: '/'}]
 })
 export class AppModule { }

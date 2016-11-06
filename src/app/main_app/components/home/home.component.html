@@ -1,1 +1,36 @@
+<md-sidenav-layout fullscreen>
+	<div *ngIf="showNavbar">
+	<md-sidenav #start (open)="closeStartButton.focus()">
+		start nav
+		<button md-button #closeStartButton (click)="start.close()">Close</button>
+	</md-sidenav>
+	<md-sidenav #end align="end" style="padding:5px; display:flex; flex-direction:column">
+    <md-nav-list role="list">
+      <a *ngFor="let tab of tabs"
+         md-list-item
+         routerLink="{{tab.url}}"
+         (click)="start.close()">
+        {{tab.name}}
+      </a>
+    </md-nav-list>
+    <div style="flex-grow:1"></div>
+    <button md-raised-button color="primary" (click)="end.close()">Close</button>
+	</md-sidenav>
+
+  <md-toolbar id="toolbar"  class="md-primary demo-toolbar">
+    <span class="r3-brand">Visualize</span>
+    <span style="flex-grow:1"></span>
+    <span>
+      <div class="screen-lg">
+        <md-nav-list style="display:flex;">
+          <a md-list-item class="r3-nav-tab" style="flex-direction: row" routerLink="{{tab.url}}" *ngFor="let tab of tabs"> {{ tab.name }} </a>
+        </md-nav-list>
+      </div>
+      <div class="screen-sm">
+        <button md-button (click)="end.open()"><md-icon class="md-24">menu</md-icon></button>
+      </div>
+    </span>
+  </md-toolbar>
+  </div>
   <router-outlet></router-outlet>
+</md-sidenav-layout>
