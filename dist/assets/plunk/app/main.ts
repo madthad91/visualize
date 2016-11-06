@@ -1,6 +1,7 @@
 import {bootstrap}  from '@angular/platform-browser-dynamic';
 import {Component} from '@angular/core';
-import {nvD3} from '//cdn.rawgit.com/krispo/ng2-nvd3/v1.1.0/lib/ng2-nvd3.ts';
+import {nvD3} from '//cdn.rawgit.com/krispo/ng2-nvd3/v1.1.3/lib/ng2-nvd3.ts';
+import { AllOptions } from './constants';
 
 @Component({
   selector: 'main',
@@ -11,40 +12,16 @@ import {nvD3} from '//cdn.rawgit.com/krispo/ng2-nvd3/v1.1.0/lib/ng2-nvd3.ts';
     </div>
   `
 })
+
+
 export class Main {
   options;
   data;
   chartType;
 
   ngOnInit(){
-    
-    this.options = {
-      chart: {
-        type: 'lineChart',
-        height: 450,
-        margin : {
-          top: 20,
-          right: 20,
-          bottom: 40,
-          left: 55
-        },
-        x: function(d){ return d.x; },
-        y: function(d){ return d.y; },
-        useInteractiveGuideline: true,
-        xAxis: {
-          axisLabel: 'Time (ms)'
-        },
-        yAxis: {
-          axisLabel: 'Voltage (v)',
-          tickFormat: function(d){
-            return d3.format('.02f')(d);
-          },
-          axisLabelDistance: -10
-        }
-      }
-    };
-  
-    this.data = this.sinAndCos();
+  this.options = AllOptions['discreteBarChart'];
+  this.data = [{"key":"Cumulative Return","values":[{"label":"Tag","value":"/tag/php"},{"label":"Tag","value":"/tag/javascript"},{"label":"Post","value":"/post/x-browser-shadow"}]}];
   }
   
   
