@@ -1,4 +1,5 @@
 <md-sidenav-layout fullscreen>
+	<div *ngIf="showNavbar">
 	<md-sidenav #start (open)="closeStartButton.focus()">
 		start nav
 		<button md-button #closeStartButton (click)="start.close()">Close</button>
@@ -16,7 +17,7 @@
     <button md-raised-button color="primary" (click)="end.close()">Close</button>
 	</md-sidenav>
 
-  <md-toolbar class="md-primary demo-toolbar">
+  <md-toolbar id="toolbar"  class="md-primary demo-toolbar">
     <span class="r3-brand">Visualize</span>
     <span style="flex-grow:1"></span>
     <span>
@@ -32,5 +33,6 @@
 	<!--<button md-button (click)="start.open()">open nav bar</button>
 	<button md-button (click)="end.open()">open nav bar</button>-->
   </md-toolbar>
+  </div>
   <router-outlet></router-outlet>
 </md-sidenav-layout>

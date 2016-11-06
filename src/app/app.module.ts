@@ -15,6 +15,7 @@ import { ViewComponent } from './components/view/view.component';
 import { PlotComponent } from './components/plot/plot.component';
 import { SelectDataFormComponent } from './components/select-data-form/select-data-form.component';
 import { DemoPageComponent } from './components/demo-page/demo-page.component';
+import { RecordsComponent } from './components/records/records.component';
 import { ChartSelector } from './components/demo-page/chart-selector'
 import { nvD3} from 'ng2-nvd3';
 
@@ -47,6 +48,7 @@ const firebaseConfig = {
     PlotComponent,
     SelectDataFormComponent,
     DemoPageComponent,
+    RecordsComponent,
     ChartSelector,
     nvD3,
     IsArrayPipe,
@@ -65,6 +67,7 @@ const firebaseConfig = {
       { path: '', component: HomeComponent },
       { path: 'plot', component: PlotComponent },
       { path: 'view/:key', component: ViewComponent },
+      { path: 'records/:hash', component: RecordsComponent},
       { path: 'demo', component: DemoPageComponent}
     ]),
     ReactiveFormsModule

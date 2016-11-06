@@ -6,62 +6,63 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class ParserService {
-  
-  getProperties(obj: Object) {
-    if ( Array.isArray(obj) || (typeof obj === "object") ) {
-      let props = Object.keys(obj);
-      let result = props.map(function(p) {
-        let pType;
-        if ( Array.isArray(obj[p]) ) {
-          pType = 'list'
-        } else {
-          pType = typeof obj[p];
-        }
-        return {name: p, type: pType}
-      });
 
-      return result;
-    }
-    else
-    {
-      return null;
-    }
-  }
+	getProperties(obj: Object) {
+		if ( Array.isArray(obj) || (typeof obj === "object") ) {
+			let props = Object.keys(obj);
+			let result = props.map(function(p) {
+				let pType;
+				if ( Array.isArray(obj[p]) ) {
+					pType = 'list'
+				} else {
+					pType = typeof obj[p];
+				}
+				return {name: p, type: pType}
+			});
 
-  getKeys(obj: Object) {
-    var temp = [];
-    var result = [];
+			return result;
+		}
+		else
+			{
+				return null;
+			}
+	}
 
-    Object.keys(obj)
-  }
+	getKeys(obj: Object) {
+		var temp = [];
+		var result = [];
 
-  getValues(k, obj) {
-    if ( Array.isArray(obj) || (typeof obj === "object") ) {
-      var result = _.cloneDeep( obj[k] );
-      return result;
-    }
-  }
+		Object.keys(obj)
+	}
 
-  getValueFromPath(p, obj) {
-    let objClone = _.cloneDeep(obj);
+	getValues(k, obj) {
+		if ( Array.isArray(obj) || (typeof obj === "object") ) {
+			var result = _.cloneDeep( obj[k] );
+			return result;
+		}
+	}
 
-    if (obj) {
-      let pathArr = p.split('.');
-      let value;
-      pathArr.forEach((prop, i) => {
-        value = objClone[prop];
-        objClone = value;
-      });
-      return value;
-    }
-  }
+	getValueFromPath(p, obj) {
+		let objClone = _.cloneDeep(obj);
 
- getPossibleLegends(arr) {
-    // return the properties of all the object contained in arr argument
-    // assumes all objects in arr has same properties
-    return Object.keys(arr[0]);
-  }
+		if (obj) {
+			let pathArr = p.split('.');
+			let value;
+			pathArr.forEach((prop, i) => {
+				value = objClone[prop];
+				objClone = value;
+			});
+			return value;
+		}
+	}
 
-  // generator code
-  constructor() { }
+	getPossibleLegends(arr) {
+		// return the properties of all the object contained in arr argument
+		// assumes all objects in arr has same properties
+		return Object.keys(arr[0]);
+	}
+
+
+	// generator code
+	constructor() { }
 }

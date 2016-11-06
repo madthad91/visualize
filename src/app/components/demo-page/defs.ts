@@ -15,7 +15,7 @@ export const ChartTypes = [
   'forceDirectedGraph'
 ];
 
-const color = d3.scale.category20()
+const color = d3.scale.category20();
 
 export const AllOptions = {
   lineChart: {
@@ -347,7 +347,7 @@ export const AllOptions = {
       }
     }
   }
-}
+};
 
 export const AllData = {
   lineChart: sinAndCos(),

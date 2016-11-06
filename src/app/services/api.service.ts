@@ -24,8 +24,19 @@ export class ApiService {
               .catch(this.handleError);
   }
 
+  post(url: string, data: any): Promise<any> {
+	  let headers = new Headers();
+	  headers.append('Content-Type', 'application/json');
+	  return this.http.post(url, {data: JSON.stringify(data)}, {
+		  headers: headers
+	  })
+	  .toPromise()
+	  .then(res => res.json() as any)
+	  .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+	  console.error('An error occurred', error); // for demo purposes only
+	  return Promise.reject(error.message || error);
   }
 }
