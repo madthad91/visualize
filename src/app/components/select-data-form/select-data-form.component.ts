@@ -34,17 +34,6 @@ export class SelectDataFormComponent implements OnInit {
   originalDataSet;
   selections: Selection[] = [];
   showGraph = false;
-  //   collectionReady: false,
-  //   showGraph: false,
-  //   graphData: null,
-  //   dataCollection: null, // store the data collection they want to graph,
-  //   chartType: null, // store the type of chart they want display, default to BarChart for now
-  //   possibleLegends: [], //store the possible legends for data collection
-  //   legendProperty: null,
-  //   dataProperty: null,
-  //   chartLegendValues: null,
-  //   chartDataValues: null,
-  // }; // stores the user selection (e.g what type of graph, data set, property)
 
   constructor(
     private Parser: ParserService,
@@ -53,16 +42,6 @@ export class SelectDataFormComponent implements OnInit {
     private DataSetTracker: DataSetTrackerService) {
 
   }
-
-  //this uses the testData.ts
-  // getData() {
-  //   this.Jgetter.getJson().then((response) => {
-  //     this.data = response;
-  //     this.children = this.Parser.getProperties(this.data);
-
-  //     console.log("test data:", this.data, "properties of selection", this.children); // TODO:takeout
-  //   });
-  // }
 
   //this uses the api input
   resetSelections() {
@@ -150,24 +129,6 @@ export class SelectDataFormComponent implements OnInit {
     console.log(this.selections);
   }
 
-  // saveValuesForLegend(legend) {
-  //   let desiredKey = legend;
-
-  //   function helper(obj) {
-  //     return { "key": obj[desiredKey], "y" : obj['value'] };
-  //   }
-
-  //   this.selections.legendProperty = legend;
-  //   this.selections.chartLegendValues = RecursiveFilterService.converter(this.data, desiredKey, 1, helper);
-  //   console.log("new: ",this.selections);
-  // }
-
-  // saveValuesForDataPoints(legend) {
-  //   function mapper(x) { return x[desiredKey]; }
-  //   let desiredKey = legend;
-  //   this.selections.chartDataValues = RecursiveFilterService.converter(this.data, desiredKey, 1, mapper);
-  // }
-
   saveValuesForLegend(legend, idx: number, selectionType) {
     if (selectionType == "dropdown") {
       //going back to the old days
@@ -204,35 +165,7 @@ export class SelectDataFormComponent implements OnInit {
       this.decideIfDone(idx);
     }
     console.log('datasettracker', DataSetTrackerService.dataTracker);
-    //end going back
-    //console.log('inside savevaluesforlegend',legend, idx )
-    // let desiredKey = legend;
-    // this.selections.legendProperty = legend;
-    // var temp = cleanDecisionPath.split('.')
-    //var desiredKey = temp[temp.length-1]
-    //   // var partialDataSet = RecursiveFilterService.converter(this.data, desiredKey, temp.length-1,function(x){return x[desiredKey];})
-    //the new broken stuff
-    // this.selections[idx].graphData = RecursiveFilterService.converter(this.data, legend, 1, function(x){return x[legend]; });
-    // DataSetTrackerService.setNewDataSet("labels", this.selections[idx].graphData);
-
-    // var temp = new Selection();
-    // temp.dataCollection = this.data;
-    // temp.dropdownOptions = this.Parser.getProperties(temp.dataCollection);
-    //end new stuff
   }
-
-  // saveValuesForDataPoints(propertyOfDataPoint) {
-  //   let thad = this;
-  //   function helper(obj) {
-  //     return { "key": obj[desiredKey], "y": obj[thad.selections.legendProperty] };
-  //   }
-
-  //   let desiredKey = this.selections.legendProperty;
-
-  //   this.selections.dataProperty = propertyOfDataPoint;
-  //   this.selections.chartDataValues = RecursiveFilterService.converter(this.data, desiredKey, 1, helper);
-  //   console.log(this.selections);
-  // }
 
 
   public decideIfDone(idx: number) {
@@ -248,31 +181,31 @@ export class SelectDataFormComponent implements OnInit {
       this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1]);
     }
     else {
-      if (decision["type"] == "complex" && decision["decision"]) {
-        //ask if thye wanna keep going 
-        //if they say yes, then run below code
-        //if they say no, then make graph using code above
-        if (window.confirm('Are you done picking datasets?')) {
-          console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
-          alert("You're done");
+          if(decision["type"] == "complex" && decision["decision"]){
+            //ask if thye wanna keep going 
+            //if they say yes, then run below code
+            //if they say no, then make graph using code above
+            if(window.confirm('Are you done picking datasets?')){
+              console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
+              alert("You're done");
 
-          //this.showGraph - ng-if for showing the graph template code.
-          this.showGraph = true;
-          this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
-          let arrs = DataSetTrackerService.getAllDataSets();
-          this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs[0], arrs[1], arrs[2]);
-
-        }
-        else {
-          this.makeNewSelection(idx);
+              //this.showGraph - ng-if for showing the graph template code.
+              this.showGraph = true;
+              this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
+              let arrs = DataSetTrackerService.getAllDataSets();
+              this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs);
+              console.log("arguments from form",arrs);
+            }
+            else{
+              this.makeNewSelection(idx);
+            }
+          }
+          else{
+            this.makeNewSelection(idx);
+          }
         }
       }
-      else {
-        this.makeNewSelection(idx);
-      }
-
-    }
-  }
+      
 
   public makeNewSelection(idx: number) {
     let temp = new Selection();
@@ -321,62 +254,6 @@ export class SelectDataFormComponent implements OnInit {
     }
 
   }
-
-  // addNewFormPiece($event, child, i) {
-  //   console.log("add new form piece was called- event, child, i", $event, child, i);
-
-  //   this.addPath(child, i);
-  //   this.selectedChild = this.Parser.getValueFromPath(this.decisionPath, this.data);
-  //   var isArray =  Array.isArray(this.selectedChild);
-
-  //   var temp = this.Parser.getProperties(this.selectedChild);
-  //   if(isArray){
-  //     this.children = temp.map(function(x){
-  //       x["isArray"] = true;
-  //       return x;
-  //     })
-  //   }
-  //   else{
-  //     this.children = temp;
-  //   }
-
-  // }
-
-  // openChart() {
-  //   console.log("open chart", this.selections.collectionReady);
-  // }
-
-  // public graphBarChart(cleanDecisionPath):void {
-  //   let desiredKey = 'name';
-  //   function testMap(o) {
-  //     return o[desiredKey];
-  //   }
-  //   let test = RecursiveFilterService.converter(this.data, 'name', 1, testMap);
-  //   console.log('graphBarChart called', test);
-  //   // this.selectType(0)
-  //   // this.selections.showGraph = true;
-  //   // var temp = cleanDecisionPath.split('.')
-  //   // var desiredKey = temp[temp.length-1]
-  //   // var partialDataSet = RecursiveFilterService.converter(this.data, desiredKey, temp.length-1,function(x){return x[desiredKey];})
-  //   // console.log("paartialDataset inside graphBarChart",partialDataSet);
-  //   // this.partialDataSet = JSON.stringify(partialDataSet);
-  // }
-
-  // selectType(e){
-  //   this.chartType = "pieChart";
-  //   this.options = AllOptions["boxPlotChart"];//this.chartType];
-  //   this.data2 = AllData["boxPlotChart"];
-  //   console.log("options and data of form component at this point",this.options, this.data2)
-  // }
-
-  // selectChart(c) {
-  //   this.selections.chartType = c;
-  //   console.log("selection updated", this.selections.chartType);
-  // }
-
-  // showWhere() {
-  //   console.log("data is ", this.data, "children", this.children);
-  // }
 
   ngOnInit(): void {
 

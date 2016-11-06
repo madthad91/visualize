@@ -13,7 +13,7 @@ export class DataSetTrackerService {
     DataSetTrackerService.formTracker = new FormTracker();
   }
 
-  public static resetDataSetTrackerService(){
+  public static resetDataSetTrackerService() {
     DataSetTrackerService.dataTracker = new DataTracker();
     DataSetTrackerService.formTracker = new FormTracker();
   }
@@ -65,16 +65,18 @@ export class DataSetTrackerService {
     return AllOptions[graphChoice];
   }
 
-  public static getDataFromGraphChoice(graphChoice: string, ...args) {
-    switch (graphChoice) {
+  public static getDataFromGraphChoice( ...args) {
+    switch (args[0]) {
       case "donutChart":
-        return dataReMapper.makeDonut(args[0], args[1]);
+        return dataReMapper.makeDonut(args[1], args[2]);
       case "discreteBarChart":
-        return dataReMapper.makeDiscreteBarChart(args[0], args[1]);
+        return dataReMapper.makeDiscreteBarChart(args[1], args[2]);
       case "pieChart":
-        return dataReMapper.makePieChart(args[0], args[1]);
+        return dataReMapper.makePieChart(args[1], args[2]);
       case "lineChart":
-        return dataReMapper.makeLineChart(graphChoice, args[1], args[2]);
+        return dataReMapper.makeLineChart(args[1]);
+      case "multiBarHorizontalChart":
+        return dataReMapper.makeMultiBarGraph(args[1]);
     }
   }
 
@@ -111,20 +113,20 @@ class FormTracker {
             'decision': false,
             'type': 'single'
           }
-      default:{
-        if(idx %3 == 2)
-        return {
-          'decision': true,
-          'type': 'complex'
-        }
-        else{
+      default: {
+        if (idx % 3 == 2)
           return {
-            'decision':false,
+            'decision': true,
+            'type': 'complex'
+          }
+        else {
+          return {
+            'decision': false,
             'type': 'complex'
           }
         }
       }
-        
+
     }
 
   }
@@ -149,57 +151,55 @@ class FormTracker {
             inputType: "dropdown"
           }
         }
-
       case "lineChart":
-      if(idx % 3 ==0){
-        let title = this.stringifyNumber(Math.floor(idx / 3 ) +1);
-        return{
-          selectYour: title + " label",
-          chartType: chartType,
-          inputType: "text"
+        if (idx % 3 == 0) {
+          let title = this.stringifyNumber(Math.floor(idx / 3) + 1);
+          return {
+            selectYour: title + " label",
+            chartType: chartType,
+            inputType: "text"
+          }
         }
-      }
-      else{
+        else {
 
-        let picky = idx %3;
-        let title = this.stringifyNumber(picky);
-        return {
-          selectYour: title + " set of values",
-          chartType: chartType,
-          inputType: "dropdown"
-        };
-      }
-      case "multiBarHorizontalChart":
-      if(idx % 3 ==0){
-        let title = this.stringifyNumber(Math.floor(idx / 3 ) +1);
-        return{
-          selectYour: title + " label",
-          chartType: chartType,
-          inputType: "text"
+          let picky = idx % 3;
+          let title = this.stringifyNumber(picky);
+          return {
+            selectYour: title + " set of values",
+            chartType: chartType,
+            inputType: "dropdown"
+          };
         }
-      }
-      else if(idx % 3 ==1){
-        let picky = Math.floor(idx / 3);
-        let title = this.stringifyNumber(picky+1);
-        return {
-          selectYour: title + " inner set of labels",
-          chartType: chartType,
-          inputType: "dropdown"
-        };
-      }
-      else{
-        let picky = Math.floor(idx / 3);
-        let title = this.stringifyNumber(picky+1);
-        return {
-          selectYour: title + " set of values",
-          chartType: chartType,
-          inputType: "dropdown"
-        };
-      }
-       
+      case "multiBarHorizontalChart":
+        if (idx % 3 == 0) {
+          let title = this.stringifyNumber(Math.floor(idx / 3) + 1);
+          return {
+            selectYour: title + " label",
+            chartType: chartType,
+            inputType: "text"
+          }
+        }
+        else if (idx % 3 == 1) {
+          let picky = Math.floor(idx / 3);
+          let title = this.stringifyNumber(picky + 1);
+          return {
+            selectYour: title + " inner set of labels",
+            chartType: chartType,
+            inputType: "dropdown"
+          };
+        }
+        else {
+          let picky = Math.floor(idx / 3);
+          let title = this.stringifyNumber(picky + 1);
+          return {
+            selectYour: title + " set of values",
+            chartType: chartType,
+            inputType: "dropdown"
+          };
+        }
+
     }
   }
-
 }
 
 class DataTracker {
@@ -269,7 +269,7 @@ class dataReMapper {
     let res = [
       {
         key: "Cumulative Return",
-        values: _.zipWith(labels, values, function(l, v) {
+        values: _.zipWith(labels, values, function (l, v) {
           return {
             "label": l,
             "value": v
@@ -290,40 +290,51 @@ class dataReMapper {
     return res;
   }
 
-  public static makeLineChart(name: string, xs: any[], ys: any[]) {
-    //Line chart data should be sent as an array of series objects.
-    // return [
-    //   {
-    //     values: sin,      //values - represents the array of {x,y} data points
-    //     key: 'Sine Wave', //key  - the name of the series.
-    //     color: '#ff7f0e'  //color - optional: choose your own line color.
-    //   },
-    //   {
-    //     values: cos,
-    //     key: 'Cosine Wave',
-    //     color: '#2ca02c'
-    //   },
-    //   {
-    //     values: sin2,
-    //     key: 'Another sine wave',
-    //     color: '#7777ff',
-    //     area: true      //area - set to true if you want this line to turn into a filled area chart.
-    //   }
-    // ];
-    console.log("lineChart called", name, xs, ys);
-    let set1 = {
-      values: [],
-      key: name
+  public static makeLineChart(...args) {
+    console.log("lineChart called", args);
+    args = args[0]; //store only the args needed for line chart
+
+    let res = [];
+    let i = 0;
+
+    while (i < args.length) {
+      let setForGraph = {
+        //the new key for every dataset (series name basically)
+        key: args[i],
+        //the x and y values for that series
+        values: _.zipWith(args[i + 1], args[i + 2], function (x, y) {
+          return { 'x': x, 'y': y };
+        })
+      };
+
+      res.push(setForGraph)
+      i = i + 3;
     }
-    let res = [
-      set1
-    ]
 
-    set1.values = _.zipWith(xs, ys, function (x, y) {
-      return { 'x': x, 'y': y };
-    });
+    return res;
+  }
 
-    console.log("transformed", res);
+  public static makeMultiBarGraph(...args) {
+    console.log("multiBarGraph called", args);
+    args = args[0]; //store only the args needed for line chart
+
+    let res = [];
+    let i = 0;
+
+    while (i < args.length) {
+      let setForGraph = {
+        //the new key for every dataset (series name basically)
+        key: args[i],
+        //the x and y values for that series
+        values: _.zipWith(args[i + 1], args[i + 2], function (x, y) {
+          return { 'label': x, 'value': y };
+        })
+      };
+
+      res.push(setForGraph)
+      i = i + 3;
+    }
+
     return res;
   }
 
