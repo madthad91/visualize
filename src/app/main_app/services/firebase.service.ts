@@ -13,14 +13,11 @@ export class FirebaseService {
   	this.items = af.database.list('/data');
   }
 
-  save(user, chartName, chartType, chartDataValues, api, graphURL) {
+  save(chartType, data, hash) {
 	    this.items.push({
-	    	user: user, 
-	    	chartName: chartName,
-	    	chartType: chartType, 
-	    	chartDataValues: chartDataValues, 
-	    	api: api,
-	    	graphURL: graphURL
+				chartType: chartType,
+	    	data: data,
+	    	hash: hash
 	    });
 	}
 
