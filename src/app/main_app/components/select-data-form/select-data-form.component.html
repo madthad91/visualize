@@ -30,7 +30,7 @@
 		</div>
 	</md-card>
 	<md-card *ngFor="let selection of selections; let i=index">
-		<span>{{selection.decisionPath | json}}</span>
+		<!--<span>{{selection.decisionPath | json}}</span>-->
 		<md-card-title>Select {{selection.selectYour}} for {{ selection.extraMsg }}</md-card-title>
 		<div *ngIf="selection.inputType == 'dropdown'">
 			<button md-icon-button [md-menu-trigger-for]="menu">
@@ -54,6 +54,9 @@
 		<button md-raised-button color="warn" (click)="resetSelections()">Reset Selection</button>
 	</md-card>
 	<md-card *ngIf="showGraph">
+		<div>
+		 <button md-raised-button color="primary">Export to PNG</button>
+		</div>
 		<nvd3 [options]="options" [data]="data2"></nvd3>
 	</md-card>
 </main>

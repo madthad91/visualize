@@ -41,7 +41,8 @@ export class FirebaseComponent implements OnInit {
 
   gotoGraph(key: string): void {
     this.router.ngOnDestroy();
-    window.location.href=key;
+    //window.location.href=key;
+    window.open(key);
 
   }
 
