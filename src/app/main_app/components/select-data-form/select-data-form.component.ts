@@ -134,9 +134,7 @@ export class SelectDataFormComponent implements OnInit {
 	}
 	/* POST /save-link to save json data in #hash.json */
 	public saveLink(data: any): void {
-		alert("sending request");
-		//const url = "http://localhost:3000/save-link";
-		const url = "https://madthad91.github.io/standalone/";
+		const url = "https://mighty-ravine-32121.herokuapp.com/api/save-link";//"https://madthad91.github.io/standalone/";
 
 		// Generate random hash
 		const randomHash = Guid.generate();
@@ -146,7 +144,7 @@ export class SelectDataFormComponent implements OnInit {
 			.catch((err) => alert("couldnt save it "));
 
 		//save in firebase
-		this.firebaseService.save(data['type'], data, url+randomHash);
+		this.firebaseService.save(data['type'], data, "https://mighty-ravine-32121.herokuapp.com/api/"+randomHash);
 		console.log('data', data)
 		console.log('randomHash', randomHash)
 	}
@@ -194,7 +192,6 @@ export class SelectDataFormComponent implements OnInit {
 		let decision = DataSetTrackerService.isDone(this.selections[idx].chartType, idx)
 		if (decision["type"] == "single" && decision["decision"] == true) {
 			console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
-			alert("You're done");
 
 			//this.showGraph - ng-if for showing the graph template code.
 			this.showGraph = true;
@@ -213,7 +210,6 @@ export class SelectDataFormComponent implements OnInit {
 				//if they say no, then make graph using code above
 				if (window.confirm('Are you done picking datasets?')) {
 					console.log(DataSetTrackerService.getAllDataSets(), DataSetTrackerService.dataTracker, DataSetTrackerService.formTracker);
-					alert("You're done");
 
 					//this.showGraph - ng-if for showing the graph template code.
 					this.showGraph = true;

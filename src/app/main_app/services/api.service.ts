@@ -27,7 +27,7 @@ export class ApiService {
   post(url: string, data: any): Promise<any> {
 	  let headers = new Headers();
 	  headers.append('Content-Type', 'application/json');
-	  return this.http.post(url, {data: JSON.stringify(data)}, {
+	  return this.http.post(url, {data: data}, {
 		  headers: headers
 	  })
 	  .toPromise()
