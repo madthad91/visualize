@@ -144,7 +144,7 @@ export class SelectDataFormComponent implements OnInit {
 			.catch((err) => alert("couldnt save it "));
 
 		//save in firebase
-		this.firebaseService.save(data['type'], data, "https://mighty-ravine-32121.herokuapp.com/api/"+randomHash);
+		this.firebaseService.save(data['type'], data, "https://madthad91.github.io/temp3/hai/"+randomHash);
 		console.log('data', data)
 		console.log('randomHash', randomHash)
 	}
