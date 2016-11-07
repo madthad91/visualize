@@ -32,4 +32,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/express2/node_modules
+/express/node_modules
