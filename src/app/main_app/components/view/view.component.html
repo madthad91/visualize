@@ -1,14 +1,13 @@
 
 <span style="padding: 10px;"> <!-- Div for input -->
-			<md-input style="flex-grow: 1; width: 80%;" placeholder="Enter Link"></md-input>
-			{{info}}
+			<md-input style="flex-grow: 1; width: 80%;" placeholder="URL" value={{key}}></md-input>
 	        <button md-raised-button color="primary" >Save</button>
 	  		<button md-raised-button color="warn" (click)="goBack()">Back</button>			
 </span>
 
-<md-card>
-   <md-card-title>Key of selected graph: {{key}}</md-card-title>
-</md-card>
+<!--<md-card>
+   <md-card-title>URL: {{key}}</md-card-title>
+</md-card>-->
 
 <!-- <md-list>
    <md-list-item *ngFor="let item of items | async">
@@ -21,5 +20,5 @@
 </md-list> -->
 
 <div style="padding: 20px;">
-	  <img src="http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg" class="img-fluid img-responsive" alt="visualization" style="width: 100%;">
+	  <img src="http://peltiertech.com/images/2009-05/StackChart4.png" class="img-fluid img-responsive" alt="visualization" style="width: 100%;">
 </div>

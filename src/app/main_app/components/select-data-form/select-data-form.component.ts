@@ -5,13 +5,14 @@ import { ApiService } from '../../services/api.service';
 import { ChartTypes, AllOptions, AllData } from '../demo-page/defs'
 import { RecursiveFilterService } from '../../services/recursive-filter.service';
 import { DataSetTrackerService } from '../../services/data-set-tracker.service';
+import { FirebaseService } from '../../services/firebase.service';
 import { Guid } from './../../utils';
 
 @Component({
 	selector: 'app-select-data-form',
 	templateUrl: './select-data-form.component.html',
 	styleUrls: ['./select-data-form.component.css'],
-	providers: [ParserService, GetJsonService, ApiService, DataSetTrackerService]
+	providers: [ParserService, GetJsonService, ApiService, DataSetTrackerService, FirebaseService]
 })
 export class SelectDataFormComponent implements OnInit {
 	options;
@@ -40,7 +41,8 @@ export class SelectDataFormComponent implements OnInit {
 		private Parser: ParserService,
 		private Jgetter: GetJsonService,
 		private ApiGetter: ApiService,
-		private DataSetTracker: DataSetTrackerService) {
+		private DataSetTracker: DataSetTrackerService,
+		private firebaseService: FirebaseService) {
 
 	}
 
@@ -133,7 +135,8 @@ export class SelectDataFormComponent implements OnInit {
 	/* POST /save-link to save json data in #hash.json */
 	public saveLink(data: any): void {
 		alert("sending request");
-		const url = "http://localhost:3000/save-link";
+		//const url = "http://localhost:3000/save-link";
+		const url = "https://madthad91.github.io/standalone/";
 
 		// Generate random hash
 		const randomHash = Guid.generate();
@@ -141,6 +144,11 @@ export class SelectDataFormComponent implements OnInit {
 		this.ApiGetter.post(url, reqBody)
 			.then((data) => alert("Saved your data"))
 			.catch((err) => alert("couldnt save it "));
+
+		//save in firebase
+		this.firebaseService.save(data['type'], data, url+randomHash);
+		console.log('data', data)
+		console.log('randomHash', randomHash)
 	}
 
 	saveValuesForLegend(legend, idx: number, selectionType) {

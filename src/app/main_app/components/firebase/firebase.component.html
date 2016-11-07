@@ -32,14 +32,14 @@
 
         <md-card *ngFor="let item of items | async" class="demo-card-blue md-card-flat" style="display: inline-block; margin:15px;" @enterAnimation>
             <md-card-header>
-                 <md-card-title><b>Name: {{item.chartName}}</b></md-card-title> 
+                 <md-card-title><b>URL: {{item.hash}}</b></md-card-title> 
                 <md-card-title>Chart Type: {{item.chartType}}</md-card-title>
             </md-card-header>
 
             <img md-card-image src="http://peltiertech.com/images/2009-05/StackChart4.png">
 
             <md-card-actions>
-                <button md-raised-button color="primary" class="margin-10" (click)="gotoDetail(item.$key)">View</button>
+                <button md-raised-button color="primary" class="margin-10" (click)="gotoGraph(item.hash)">View</button>
                 <button md-raised-button color="warn" class="margin-10" (click)="deleteItem(item.$key)">Delete</button>
             </md-card-actions>
         </md-card>
