@@ -31,3 +31,5 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+/express2/node_modules
