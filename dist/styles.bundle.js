@@ -1,6 +1,6 @@
 webpackJsonp([1,2],{
 
-/***/ 432:
+/***/ 433:
 /***/ function(module, exports) {
 
 /*
@@ -57,7 +57,7 @@ module.exports = function() {
 
 /***/ },
 
-/***/ 453:
+/***/ 454:
 /***/ function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -87,7 +87,7 @@ if(false) {
 /***/ 785:
 /***/ function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(432)();
+exports = module.exports = __webpack_require__(433)();
 // imports
 
 
@@ -102,12 +102,12 @@ exports.push([module.i, ".md-elevation-z0 {\n  box-shadow: 0px 0px 0px 0px rgba(
 /***/ 786:
 /***/ function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(432)();
+exports = module.exports = __webpack_require__(433)();
 // imports
 exports.i(__webpack_require__(785), "");
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\n.md-menu{max-height: 300px !important; overflow-y:auto !important}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n\r\n.md-menu{max-height: 300px !important; overflow-y:auto !important}", ""]);
 
 // exports
 
@@ -370,7 +370,7 @@ function updateLink(linkElement, obj) {
 /***/ 859:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(453);
+module.exports = __webpack_require__(454);
 
 
 /***/ }

@@ -13,10 +13,10 @@ export class FirebaseService {
   	this.items = af.database.list('/data');
   }
 
-  save(user, chartType, chartDataValues, api, graphURL) {
+  save(user, chartName, chartType, chartDataValues, api, graphURL) {
 	    this.items.push({
 	    	user: user, 
-	    	// chartName: chartName, // Still needs to be added
+	    	chartName: chartName,
 	    	chartType: chartType, 
 	    	chartDataValues: chartDataValues, 
 	    	api: api,

@@ -39,8 +39,8 @@ export class FirebaseComponent implements OnInit {
     this.router.navigate(link);
   }
 
-  save(user, chartType, chartDataValues, api, graphURL) {
-  	this.firebaseService.save(user, chartType, chartDataValues, api, graphURL);
+  save(user, chartName, chartType, chartDataValues, api, graphURL) {
+  	this.firebaseService.save(user, chartName, chartType, chartDataValues, api, graphURL);
   }
 
   deleteItem(key: string) {

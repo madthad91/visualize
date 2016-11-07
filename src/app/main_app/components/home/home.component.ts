@@ -37,11 +37,13 @@ title = 'app works!';
       name:"Plot",
       url:"plot",
       icon: "insert_chart"
-    }, {
-      name: "View",
-      url:"view",
-      icon:"search"
-    }, {
+    }, 
+    // {
+    //   name: "View",
+    //   url:"view",
+    //   icon:"search"
+    // }, 
+    {
       name: "Demo",
       url:"demo",
       icon:"dont matter"

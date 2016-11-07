@@ -22,7 +22,7 @@ import { PropertyTypeConvertPipe } from './pipes/property-type-convert.pipe';
 
 import { ApiService } from './services/api.service';
 import { IsArrayPipe } from './pipes/is-array.pipe';
-// import { FirebaseComponent } from './components/firebase/firebase.component';
+import { FirebaseComponent } from './components/firebase/firebase.component';
 // import {
 //   AngularFireModule,
 //   AuthMethods,
@@ -63,7 +63,7 @@ import { IsArrayPipe } from './pipes/is-array.pipe';
         component: HomeComponent
         ,
         children: [
-          {path: '', component: PlotComponent},
+          {path: '', component: FirebaseComponent},
           { path: 'plot', component: PlotComponent },
           { path: 'view/:key', component: ViewComponent },
           { path: 'records/:hash', component: RecordsComponent },
