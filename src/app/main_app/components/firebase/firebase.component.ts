@@ -43,7 +43,7 @@ export class FirebaseComponent implements OnInit {
     this.router.ngOnDestroy();
     //window.location.href=key;
     // window.open(key);
-      window.open(key, '_blank');
+      window.open(key, '');
 
   }
 
