@@ -192,7 +192,11 @@ export class SelectDataFormComponent implements OnInit {
 			this.showGraph = true;
 			this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
 			let arrs = DataSetTrackerService.getAllDataSets();
+			const chartType = DataSetTrackerService.getChartType();
+			const formattedData = DataSetTrackerService.getDataFromGraphChoice(chartType, arrs);
 			this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs);
+			this.saveLink({ "type": chartType, "data": formattedData });
+
 		}
 		else {
 			if (decision["type"] == "complex" && decision["decision"]) {
@@ -207,6 +211,9 @@ export class SelectDataFormComponent implements OnInit {
 					this.showGraph = true;
 					this.options = DataSetTrackerService.getOptionsFromGraphChoice(DataSetTrackerService.getChartType());
 					let arrs = DataSetTrackerService.getAllDataSets();
+					const chartType = DataSetTrackerService.getChartType();
+					const formattedData = DataSetTrackerService.getDataFromGraphChoice(chartType, arrs);
+					this.saveLink({ "type": chartType, "data": formattedData });
 					this.data2 = DataSetTrackerService.getDataFromGraphChoice(DataSetTrackerService.getChartType(), arrs);
 					console.log("arguments from form", arrs);
 				}
