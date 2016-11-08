@@ -36,6 +36,7 @@ export class SelectDataFormComponent implements OnInit {
 	originalDataSet;
 	selections: Selection[] = [];
 	showGraph = false;
+	isLoading = false; // keep track of if we are waiting for data. used to display loading animation
 
 	constructor(
 		private Parser: ParserService,
@@ -60,6 +61,9 @@ export class SelectDataFormComponent implements OnInit {
 		api = api.trim();
 		if (!api) { return; }
 
+		this.isLoading = true;
+
+
 		if (api.indexOf("localhost") > -1) {
 			DataSetTrackerService.setUrl(api);
 			this.ApiGetter.getLocalAPI(api)
@@ -68,14 +72,18 @@ export class SelectDataFormComponent implements OnInit {
 					var isArray = Array.isArray(this.data);
 
 					let propSet = this.Parser.getProperties(this.data);
+
+
 					if (propSet) {
 						this.children = propSet;
 					}
 					else {
 						alert('tada')
 					}
-					console.log("json data", this.data)
-					console.log("children in api getter", this.children);
+
+
+					console.log("json data", this.data);
+					console.log("chlildren in api getter", this.children);
 				});
 		}
 		else {
@@ -92,10 +100,15 @@ export class SelectDataFormComponent implements OnInit {
 					else {
 						alert('tada')
 					}
+
+					this.isLoading = false;
+
 					console.log("json data", this.data)
 					console.log("children in api getter", this.children);
 				});
 		}
+
+		
 
 	}
 

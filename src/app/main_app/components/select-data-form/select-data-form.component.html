@@ -8,6 +8,7 @@
 		<br>
 		<md-input #api placeholder="API" class="width-50"></md-input>
 		<button md-raised-button color="primary" (click)="getJSONData(api.value)">Get API</button>
+
 	</md-card>
 	<md-card *ngIf="data">
 		<div style="margin-left:-10px">
@@ -15,7 +16,7 @@
         </button>
 			<md-card-title style="display:inline;">Select your chart type</md-card-title>
 		</div>
-		<br>
+		<br> 
 		<div>
 			<button md-icon-button [md-menu-trigger-for]="menu">
                 <md-icon>more_vert</md-icon>
@@ -59,4 +60,9 @@
 		</div>
 		<nvd3 [options]="options" [data]="data2"></nvd3>
 	</md-card>
+
+	<div [hidden]="!isLoading" class="demo-progress-bar-container" style="position: fixed; bottom: 0px; width: 100%;">
+	  <md-progress-bar mode="indeterminate"
+	                   class="demo-progress-bar-margins"></md-progress-bar>
+	</div>
 </main>
