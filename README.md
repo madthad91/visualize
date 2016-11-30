@@ -1,7 +1,4 @@
-#Dev Branch
-
-This is a dev branch for working with the mockup.
-
+This project is built with angular cli and angular2
 
 #Getting Started on this project:
 ##getting started windows
